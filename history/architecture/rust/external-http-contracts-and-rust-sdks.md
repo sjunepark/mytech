@@ -8,9 +8,12 @@ Seoro showed that a Rust-only integration could gain extra representations and
 tooling without an independent consumer for them.
 
 The guidance now defaults to a canonical Rust protocol module for Rust-only
-integrations. OpenAPI requires a current independent purpose, and generation,
-custom compilation, and shared compilation are earned separately. The protocol
-module, evidence, safety, and verification principles remain unchanged.
+integrations. OpenAPI requires a current independent purpose. Once selected,
+OpenAPI 3.2 compilation, normalized generation, and source-to-consumer
+verification follow the dedicated language-neutral companion guidance; custom
+compiler implementation and cross-project sharing remain earned separately.
+The protocol module, evidence, safety, and verification principles remain
+unchanged.
 
 ## 2026-07-31
 

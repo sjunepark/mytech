@@ -48,8 +48,8 @@ coverage but cannot certify the contract or generator that produced them.
 
 Contract verification remains credential-free and offline. Production
 credentials are never required to validate evidence, prepare requests, or test
-the ordinary merge path. When OpenAPI or generation is selected, linting,
-bundling, and freshness checks also remain credential-free.
+the ordinary merge path. On the OpenAPI path, source validation, bundling,
+generation, and freshness checks also remain credential-free.
 
 ## Bounded probes
 
@@ -109,8 +109,10 @@ remain human-owned actions unless the user explicitly delegates them.
 ## Related guidance
 
 Use [External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
-to choose the repository authority and, when justified, the generation or
-compiler path behind the Rust protocol module.
+to choose the repository authority and define the Rust protocol boundary. When
+that choice is language-neutral OpenAPI, use
+[OpenAPI 3.2 Contract Compilation and Verification](../architecture/openapi-contract-compilation-and-verification.md)
+for the compiler, generation, and conformance pipeline.
 
 ## Revisit when
 

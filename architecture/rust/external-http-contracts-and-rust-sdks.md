@@ -22,9 +22,11 @@ Direct Rust is the default for Rust-only integrations. Possible future
 languages, a verifier created only to justify the specification, or generation
 for its own sake do not earn an OpenAPI authority.
 
-OpenAPI, code generation, a custom contract compiler, and a shared compiler are
-separate decisions. Using OpenAPI does not require all three. Each additional
-layer must remove demonstrated duplication or serve a named consumer.
+Choosing OpenAPI also chooses a compiler boundary, a language-neutral
+normalized model, deterministic target generation, and source-to-consumer
+verification. These are what keep multiple languages from assigning different
+meaning to the same specification. The compiler may compose existing tooling;
+custom implementation and cross-project sharing remain separate decisions.
 
 Give each provider integration one repository authority. Do not maintain
 handwritten Rust and project-authored OpenAPI as co-equal definitions of the
@@ -43,7 +45,8 @@ This decision governs:
 
 - choosing the repository authority for an external provider integration;
 - organizing and verifying provider evidence and fixtures;
-- deciding whether OpenAPI, generation, or a compiler is justified;
+- deciding whether OpenAPI's language-neutral compilation pipeline is
+  justified;
 - validating requests and decoding responses;
 - structuring SDK and command-line errors;
 - separating provider protocols from application domains; and
@@ -68,7 +71,7 @@ Use the following current-state test:
 | Condition | Repository authority |
 | --- | --- |
 | All semantic consumers are Rust and no independent standard artifact is needed | Rust protocol module |
-| The provider publishes a trustworthy, usable OpenAPI specification | Pinned OpenAPI contract |
+| The provider publishes a trustworthy, usable OpenAPI specification | Canonical OpenAPI contract package |
 | A public or non-Rust consumer needs the HTTP contract | Project-owned OpenAPI contract |
 | Current documentation, mocking, gateway, or compatibility tooling specifically requires OpenAPI | OpenAPI contract, while that need remains real |
 | Another language might be added later | Rust protocol module until that consumer exists |
@@ -121,104 +124,34 @@ derive every test vector from the same Rust metadata it verifies.
 
 ## OpenAPI target shape
 
-Use this shape only when OpenAPI has a named independent purpose:
+When OpenAPI has a named independent purpose, use OpenAPI 3.2 as the default
+dialect for project-authored contracts. Compile the canonical contract through
+a language-neutral normalized model and generate Rust contract artifacts from
+that model before adding handwritten protocol behavior:
 
 ```text
-Official specification or reviewed provider evidence
-                         |
-                         v
-               Canonical OpenAPI contract
-               - provenance and support manifest
-               - independently justified fixtures
-                         |
-                         v
-             Optional generation or compilation
-               - deterministic Rust derivatives
-               - freshness verification
-                         |
-                         v
-                 Rust protocol module
-                         |
-                +--------+---------+
-                |                  |
-                v                  v
-          Command-line adapter   Application or public SDK
+Canonical OpenAPI contract
+           |
+           v
+Language-neutral compiler model
+           |
+           v
+Generated Rust contract artifacts
+           |
+           v
+Handwritten Rust protocol boundary
 ```
 
-The OpenAPI contract is authoritative for the repository-supported wire facts.
-Handwritten Rust owns only behavior that is deliberately outside that
-contract. Generated Rust is private by default and never becomes a second
-editable authority.
+The OpenAPI contract is authoritative for supported wire facts. Generated Rust
+is a private deterministic derivative. Handwritten Rust owns transport,
+ergonomics, project policy, and semantics deliberately outside the wire
+contract; it does not redefine generated structure, serialization, or
+schema-owned validation.
 
-When the Rust implementation is handwritten, a contract-to-protocol
-conformance check reconciles its observable operation coverage, serialization,
-validation, and decoding with OpenAPI. This replaces generated-file freshness;
-it does not make the Rust implementation a second authority.
-
-A typical project-owned package may contain:
-
-```text
-contracts/<provider>/
-  openapi.yaml
-  manifest.yaml
-  fixtures/
-  generated/
-    openapi.bundle.yaml
-```
-
-Names may follow local conventions, but roles remain distinct:
-
-- `openapi.yaml` is the reviewed contract or pinned provider specification.
-- `manifest.yaml` records provenance, supported scope, known unknowns, and
-  policy OpenAPI cannot express cleanly without redefining its schemas.
-- `fixtures/` contains externally justified success and failure examples.
-- `generated/` contains reproducible derivatives and is never edited manually.
-
-Unknown behavior stays unknown. Do not invent response fields, pagination
-rules, status semantics, or error shapes to make OpenAPI or generation easier.
-
-## Generation and compilers
-
-Generation is justified when it removes mechanical transcription from an
-OpenAPI authority. Generate facts such as:
-
-- provider-shaped wire types;
-- request parameters and serialization;
-- schema-derived validation;
-- response dispatch and decoding metadata;
-- operation and rule metadata; and
-- generated-file freshness checks.
-
-Keep project policy and ergonomics handwritten:
-
-- the deliberately supported public or internal interface;
-- credential acquisition and secret handling;
-- transport limits, retries, and timeouts;
-- repository safety bounds;
-- semantic rules outside the provider wire contract;
-- translation into an application domain model; and
-- command-line presentation.
-
-Use a direct existing generator or a small project-owned generation step when
-it satisfies the concrete contract. Build a custom compiler only after real
-specifications repeatedly require the same loading, resolution, normalization,
-unsupported-feature diagnostics, and deterministic output policy.
-
-A shared compiler is earned when multiple consumers need the same policy-free
-normalized model and conformance behavior. One specification and one output do
-not by themselves establish that seam.
-
-When a compiler is justified, keep its interface small:
-
-```text
-canonical OpenAPI contract -> normalized model or structured diagnostics
-normalized model           -> deterministic artifacts
-```
-
-Unsupported or ambiguous constructs fail with source locations. Never
-approximate them silently. Correct poor generated output in the contract,
-normalized model, or generator rather than adding a permanent handwritten
-compatibility layer.
+Follow
+[OpenAPI 3.2 Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md)
+for the canonical package, supported profile, normalized model, generation
+boundary, and layered conformance requirements.
 
 ## Protocol module
 
@@ -248,9 +181,9 @@ For direct Rust, encode structural invariants in types where practical and own
 remaining field, aggregate, or cross-field rules in the protocol module. Garde
 or explicit validation may implement those rules privately.
 
-For OpenAPI, generate schema-owned validation when generation is part of the
-chosen path. Handwritten validation owns only project policy or semantics that
-the OpenAPI authority does not claim. Do not repeat schema rules as independent
+For OpenAPI, generate schema-owned validation through the selected compiler
+profile. Handwritten validation owns only project policy or semantics that the
+OpenAPI authority does not claim. Do not repeat schema rules as independent
 handwritten attributes.
 
 Translate validation failures into project-owned errors. Machine-facing
@@ -288,7 +221,8 @@ rather than inheriting library defaults accidentally.
 
 For a credentialed fixed-origin protocol, add credentials only after validating
 the allowed origin. Never forward them to an unapproved redirect or alternate
-origin. Retries require operation-level evidence that replay is valid.
+origin; disable redirects unless an explicit policy can preserve that
+invariant. Retries require operation-level evidence that replay is valid.
 
 Compatibility tests include positive controls proving that safeguards can
 distinguish unsafe behavior. Dependency upgrades that can change transport or
@@ -311,10 +245,11 @@ oracle:
 6. Use bounded, credential-aware live probes to detect drift without making
    them the sole merge gate.
 
-The OpenAPI path additionally verifies source linting, reference resolution,
-unsupported constructs, and either handwritten implementation conformance or
-generated output freshness. Do not add those layers to direct Rust merely to
-make the verification portfolios look symmetrical.
+The OpenAPI path additionally applies the source, compiler, generator,
+freshness, and cross-target verification defined by
+[OpenAPI 3.2 Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md).
+Do not add those layers to direct Rust merely to make the verification
+portfolios look symmetrical.
 
 Fixtures generated from Rust or a normalized model may increase coverage, but
 they do not replace independently justified examples.
@@ -360,8 +295,9 @@ An adopting project should:
 When collapsing project-authored OpenAPI into direct Rust, move useful fixtures
 and behavior tests before deleting the OpenAPI source, generated artifacts,
 compiler, and OpenAPI-only tooling. When a real independent consumer later
-earns OpenAPI, migrate deliberately from the existing provider evidence and
-supported behavior rather than maintaining both authorities indefinitely.
+earns OpenAPI, adopt the complete language-neutral compilation pipeline from
+the existing provider evidence and supported behavior rather than maintaining
+both authorities indefinitely.
 
 Migration constraints may change sequencing. They do not justify permanent
 parallel authorities.
@@ -370,6 +306,6 @@ parallel authorities.
 
 Reconsider the authority when a current non-Rust or public consumer appears,
 an authoritative provider specification becomes usable, standards-based
-tooling becomes materially valuable, or OpenAPI generation obscures rather
-than removes work. Keep the protocol module and independent evidence whichever
-representation owns the contract.
+tooling becomes materially valuable, or the language-neutral pipeline no longer
+serves its named consumers. Keep the protocol module and independent evidence
+whichever representation owns the contract.
