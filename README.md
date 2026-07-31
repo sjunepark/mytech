@@ -1,50 +1,50 @@
 # Design Decisions
 
-This collection is the canonical home for reusable technical design decisions,
-reference architectures, and preferred technology profiles. It records the
-target state independently of any one project's current implementation.
+This repository is my personal reference for reusable technical preferences and
+design decisions. It gives me and the agents I work with a consistent baseline
+when different projects face similar requirements.
 
-Adopting repositories should:
+The guidance describes my current preference. It is a starting point for
+project-specific discussion, not a substitute for considering that project's
+requirements and local instructions.
 
-- adopt a decision explicitly;
-- keep migration plans and current-state notes locally;
-- record a local exception when project constraints require one; and
-- link here instead of copying normative text.
+## How to use this repository
 
-## Decision types
+1. Use this README to find the relevant area.
+2. Read only the document needed for the decision at hand.
+3. Treat its guidance as the default starting point.
+4. Discuss whether project constraints justify a different choice.
 
-- **Principles** describe durable design preferences.
-- **Architectures** define reusable system shapes, interfaces, and invariants.
-- **Stacks** define preferred technologies and the roles they should play.
+Link to the relevant document when using it from another project. A project's
+requirements and local instructions take precedence over this repository.
 
-Create a directory for a type when its first document is added. Avoid empty
-categories and placeholder documents.
+## Areas
 
-## Status
+- [`architecture/`](architecture/) contains reusable system shapes, boundaries,
+  interfaces, and architectural decisions.
+- [`libraries/`](libraries/) contains preferred libraries and the roles for
+  which they are a default.
+- [`stacks/`](stacks/) contains preferred combinations of technologies.
+- [`practices/`](practices/) contains reusable engineering, tooling, and
+  workflow guidance.
 
-- **Proposed** — under discussion and not yet normative.
-- **Accepted** — the default for projects that adopt the decision.
-- **Superseded** — retained for history and linked to its replacement.
+The areas are intentionally broad and shallow. Add another area only when
+concrete guidance does not fit an existing one.
 
-## Accepted architectures
+## Current guidance
 
-- [External HTTP Contracts and Rust SDKs][external-contracts] — a shared target
-  architecture for [OpenDART], [Seoro], and future Rust clients of external
-  HTTP providers.
+- [External HTTP Contracts and Rust SDKs](architecture/rust/external-http-contracts-and-rust-sdks.md)
 
-[external-contracts]: decisions/external-http-contracts-and-rust-sdks.md
-[OpenDART]: https://github.com/cpaikr/opendart
-[Seoro]: https://github.com/cpaikr/seoro
+## Maintaining guidance
 
-## Writing decisions
+Active documents describe current preferences. Update them in place when a
+preference changes.
 
-Each decision should state:
+When the reason for a meaningful change will remain useful, add a brief dated
+note under [`history/`](history/) at the same relative path as the active
+document. For example, the history for `architecture/example.md` belongs at
+`history/architecture/example.md`. Create history files only when they have
+something useful to record; Git retains the exact textual changes.
 
-- its status and intended adopters;
-- what it governs and what remains project-specific;
-- the normative target design and enforceable invariants;
-- preferred technology roles, including what must stay replaceable; and
-- migration principles without embedding a project's temporary task list.
-
-Prefer one clear decision over parallel recommendations. When experience
-invalidates a decision, supersede it rather than silently rewriting its intent.
+History is not part of the normal reading path. Consult it only when the
+evolution of a preference matters.
