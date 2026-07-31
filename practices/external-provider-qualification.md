@@ -47,8 +47,9 @@ Use independently authored fixtures and examples. Generated fixtures can add
 coverage but cannot certify the contract or generator that produced them.
 
 Contract verification remains credential-free and offline. Production
-credentials are never required to lint, bundle, generate, or test the ordinary
-merge path.
+credentials are never required to validate evidence, prepare requests, or test
+the ordinary merge path. When OpenAPI or generation is selected, linting,
+bundling, and freshness checks also remain credential-free.
 
 ## Bounded probes
 
@@ -108,7 +109,8 @@ remain human-owned actions unless the user explicitly delegates them.
 ## Related guidance
 
 Use [External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
-for the contract compiler and Rust protocol shape.
+to choose the repository authority and, when justified, the generation or
+compiler path behind the Rust protocol module.
 
 ## Revisit when
 
