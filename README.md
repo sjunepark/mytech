@@ -1,4 +1,4 @@
-# Design Decisions
+# mytech
 
 This repository is my personal reference for reusable technical preferences and
 design decisions. It gives me and the agents I work with a consistent baseline
