@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Database Schema Authority
 
-**Status:** Accepted  
 **Initial evidence:** implemented in Creo; accepted target in Seoro
 
 ## Decision

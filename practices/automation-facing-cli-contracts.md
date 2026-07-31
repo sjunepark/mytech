@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Automation-Facing CLI Contracts
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Seoro, Unslide
 
 ## Decision

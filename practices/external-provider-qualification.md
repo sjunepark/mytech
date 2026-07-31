@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # External Provider Qualification
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Creo, Seoro
 
 ## Decision

@@ -1,6 +1,9 @@
+---
+status: draft
+---
+
 # Desktop Device Authorization
 
-**Status:** Draft — owner review required  
 **Initial evidence:** Creo
 
 ## Tentative preference

@@ -1,6 +1,9 @@
+---
+status: draft
+---
+
 # Go for Operational Services and Repository Tooling
 
-**Status:** Draft — owner review required  
 **Initial evidence:** OpenDART, Creo
 
 ## Tentative preference

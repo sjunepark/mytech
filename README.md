@@ -66,6 +66,36 @@ concrete guidance does not fit an existing one.
 they become defaults. Drafts are not active guidance and must not be applied to
 another project as policy.
 
+## Guidance document contract
+
+Guidance documents use one minimal frontmatter field:
+
+```yaml
+---
+status: accepted
+---
+```
+
+Allowed statuses and required sections are:
+
+- `accepted`: `Decision` and `Revisit when`;
+- `draft`: `Tentative preference`, `Why this is uncertain`, `Promotion
+  questions`, and `If accepted`; and
+- `deprecated`: `Replacement` with a link and `Rationale`.
+
+Accepted and deprecated guidance belongs under an active area. Draft guidance
+belongs under `draft/`. Routing READMEs and history notes are not guidance and
+do not use this frontmatter.
+
+Do not duplicate titles, areas, technology versions, evidence inventories, or
+review dates in frontmatter. Paths and document content own that information.
+
+Run the repository-owned validation after changing guidance:
+
+```sh
+./scripts/validate-guidance
+```
+
 ## Maintaining guidance
 
 Active documents describe current preferences. Update them in place when a

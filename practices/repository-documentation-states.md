@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Repository Documentation States
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Creo, Seoro, Unslide
 
 ## Decision

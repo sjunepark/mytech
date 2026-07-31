@@ -1,6 +1,9 @@
+---
+status: draft
+---
+
 # Safe Local Tool Packages
 
-**Status:** Draft — owner review required  
 **Initial evidence:** Creo
 
 ## Tentative preference

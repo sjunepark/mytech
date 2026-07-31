@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Persist Before External Effects
 
-**Status:** Accepted  
 **Initial evidence:** implemented paid-operation recovery in Creo; accepted
 messaging and worker targets in Seoro
 

@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # External HTTP Contracts and Rust SDKs
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Seoro
 
 ## Decision
@@ -348,3 +351,10 @@ An adopting project should:
 
 Migration constraints may change sequencing. They do not weaken the target
 invariants or create permanent parallel authorities.
+
+## Revisit when
+
+Reconsider this shared shape when a provider contract cannot be represented
+truthfully by the selected canonical format, or when generation obscures rather
+than removes repeated protocol work. Keep the project-owned boundary and
+independent evidence even if the compiler or contract format changes.

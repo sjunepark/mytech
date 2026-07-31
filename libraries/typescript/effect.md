@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Effect for TypeScript Application Runtimes
 
-**Status:** Accepted  
 **Initial evidence:** implemented in Creo and Unslide; accepted target in Seoro
 
 ## Decision
@@ -92,3 +95,10 @@ meaningful resource or error model does not need an Effect runtime.
 
 Use Effect because it removes durable lifecycle and orchestration complexity,
 not to make every function share one return type.
+
+## Revisit when
+
+Reconsider Effect when the application no longer owns meaningful asynchronous
+lifecycles or typed operational failures, or when its boundary translations and
+runtime model cost more than the complexity they remove. Do not retain it only
+for consistency with another project.

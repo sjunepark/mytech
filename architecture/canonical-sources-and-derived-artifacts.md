@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Canonical Sources and Derived Artifacts
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Creo, Seoro, Unslide
 
 ## Decision

@@ -1,6 +1,9 @@
+---
+status: draft
+---
+
 # TypeScript Runtime and Package Management
 
-**Status:** Draft — owner review required  
 **Initial evidence:** Creo, Seoro, Unslide
 
 ## Tentative preference

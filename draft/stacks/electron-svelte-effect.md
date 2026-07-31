@@ -1,6 +1,9 @@
+---
+status: draft
+---
+
 # Electron, Svelte, and Effect for Desktop Applications
 
-**Status:** Draft — owner review required  
 **Initial evidence:** Creo
 
 ## Tentative preference

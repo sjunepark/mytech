@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Verification from Source to Consumer
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Creo, Seoro, Unslide
 
 ## Decision

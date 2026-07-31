@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # Boundary-Owned Contracts and Pure Cores
 
-**Status:** Accepted  
 **Initial evidence:** OpenDART, Creo, Seoro, Unslide
 
 ## Decision

@@ -1,6 +1,9 @@
+---
+status: accepted
+---
+
 # SvelteKit, Effect, and PostgreSQL
 
-**Status:** Accepted  
 **Initial evidence:** implemented in Creo; accepted target in Seoro
 
 ## Decision
