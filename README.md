@@ -90,10 +90,18 @@ do not use this frontmatter.
 Do not duplicate titles, areas, technology versions, evidence inventories, or
 review dates in frontmatter. Paths and document content own that information.
 
-Run the repository-owned validation after changing guidance:
+Run the repository-owned validation after changing guidance. It checks the
+guidance document contract and Markdown style:
 
 ```sh
 ./scripts/validate-guidance
+```
+
+The validation uses `uvx` to run the repository-pinned `rumdl` version. To
+apply safe Markdown formatting fixes directly, run:
+
+```sh
+./scripts/rumdl fmt .
 ```
 
 ## Maintaining guidance

@@ -1,0 +1,5 @@
+[global]
+# Guidance prose favors readable paragraphs over mechanical line wrapping.
+disable = ["MD013"]
+flavor = "gfm"
+respect-gitignore = true

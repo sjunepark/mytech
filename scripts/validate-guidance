@@ -4,11 +4,14 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
+RUMDL_RUNNER = REPOSITORY_ROOT / "scripts" / "rumdl"
+RUMDL_CONFIG = REPOSITORY_ROOT / ".rumdl.toml"
 ACTIVE_AREAS = ("architecture", "libraries", "practices", "stacks")
 ALLOWED_FRONTMATTER_FIELDS = {"status"}
 REQUIRED_HEADINGS = {
@@ -158,8 +161,20 @@ def main() -> int:
                 print(f"{relative_path}: {error}", file=sys.stderr)
         return 1
 
-    print(f"Validated {len(documents)} guidance documents.")
-    return 0
+    print(f"Validated {len(documents)} guidance documents.", flush=True)
+    markdown_lint = subprocess.run(
+        [
+            RUMDL_RUNNER,
+            "check",
+            "--config",
+            RUMDL_CONFIG,
+            "--deny-config-warnings",
+            ".",
+        ],
+        cwd=REPOSITORY_ROOT,
+        check=False,
+    )
+    return markdown_lint.returncode
 
 
 if __name__ == "__main__":
