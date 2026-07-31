@@ -44,6 +44,7 @@ concrete guidance does not fit an existing one.
 - [Database Schema Authority](architecture/database-schema-authority.md)
 - [Persist Before External Effects](architecture/persist-before-external-effects.md)
 - [External HTTP Contracts and Rust SDKs](architecture/rust/external-http-contracts-and-rust-sdks.md)
+- [OpenAPI Contract Compilation and Verification](architecture/openapi-contract-compilation-and-verification.md)
 
 ### Libraries
 

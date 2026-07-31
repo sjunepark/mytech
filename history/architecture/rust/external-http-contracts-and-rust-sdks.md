@@ -1,5 +1,23 @@
 # External HTTP Contracts and Rust SDKs History
 
+## 2026-08-01
+
+The original guidance required project-owned OpenAPI, compilation, and
+generated Rust for every external provider integration. Applying that shape to
+Seoro showed that a Rust-only integration could gain extra representations and
+tooling without an independent consumer for them.
+
+The guidance now defaults to a canonical Rust protocol module for Rust-only
+integrations. OpenAPI requires a current independent purpose. Once selected,
+the canonical dialect must serve the named provider and tool consumers;
+OpenAPI 3.2 is the default for project-authored contracts only when they support
+it. A repository-owned compiler boundary, deterministic generation, and
+source-to-consumer verification are required. A separate normalized model is
+earned by multiple semantic generators or a demonstrated generator gap rather
+than by OpenAPI alone. Custom implementation and cross-project sharing remain
+separate decisions. The protocol module, evidence, safety, and verification
+principles remain unchanged.
+
 ## 2026-07-31
 
 Made the OpenAPI dialect project-selected rather than prescribing OpenAPI 3.1;

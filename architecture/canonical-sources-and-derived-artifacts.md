@@ -23,9 +23,15 @@ A canonical source must be:
 
 - intentionally authored or changed through one reviewed path;
 - sufficient to regenerate or reconcile its derivatives;
-- independent of the implementation that consumes it when independent evidence
-  is required; and
+- paired with independently justified evidence when it is also the executable
+  implementation of the concern; and
 - explicit about unknown, inferred, and externally sourced facts.
+
+Executable code may be canonical when all current consumers use that code and
+an independent standard artifact has no concrete purpose. For example, a Rust
+protocol module may own a Rust-only provider contract while external source
+material and independently authored fixtures verify compatibility without
+becoming a second contract authority.
 
 Do not let generated code, database mappings, screenshots, caches, runtime
 projections, or deployed copies silently become parallel authorities.
@@ -84,8 +90,8 @@ This architecture contributes three specific invariants:
 - every derivative identifies its canonical input and owning generator;
 - regeneration reconciles deterministically with exact identity coverage,
   rather than copied counts; and
-- independent evidence exists where a generator and consumer could otherwise
-  certify the same mistaken assumption.
+- independent evidence exists where a source, derivative, or implementation
+  could otherwise certify the same mistaken assumption.
 
 ## Migration
 
