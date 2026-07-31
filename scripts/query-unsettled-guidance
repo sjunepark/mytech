@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""Query every guidance document whose lifecycle is not settled."""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+from guidance_contract import (
+    REPOSITORY_ROOT,
+    REQUIRED_HEADINGS,
+    SETTLED_STATUSES,
+    guidance_documents,
+    parse_frontmatter,
+)
+
+
+CONTRACT_VERSION = 1
+OPERATION = "query_unsettled_guidance"
+
+
+def document_title(lines: list[str], body_start: int) -> str | None:
+    for line in lines[body_start:]:
+        if line.startswith("# "):
+            return line.removeprefix("# ").strip()
+    return None
+
+
+def write_result(ok: bool, **body: object) -> None:
+    result = {
+        "contract_version": CONTRACT_VERSION,
+        "ok": ok,
+        "operation": OPERATION,
+        **body,
+    }
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+
+
+def write_execution_error(category: str, path: Path, message: str) -> None:
+    write_result(
+        False,
+        error={
+            "category": category,
+            "path": path.relative_to(REPOSITORY_ROOT).as_posix(),
+            "message": message,
+        },
+    )
+
+
+def main(arguments: list[str]) -> int:
+    if arguments in (["-h"], ["--help"]):
+        print("usage: query-unsettled-guidance")
+        print("\nQuery all non-settled guidance as JSON.")
+        return 0
+
+    if arguments:
+        write_result(
+            False,
+            error={
+                "category": "invalid_invocation",
+                "message": "query-unsettled-guidance accepts no arguments",
+            },
+        )
+        return 2
+
+    documents: list[dict[str, object]] = []
+
+    for path, _allowed_statuses in guidance_documents():
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except UnicodeError:
+            write_execution_error(
+                "invalid_document_encoding", path, "document is not valid UTF-8"
+            )
+            return 1
+        except OSError as error:
+            message = error.strerror or "document could not be read"
+            write_execution_error("document_read_failed", path, message)
+            return 1
+
+        fields, body_start, frontmatter_errors = parse_frontmatter(lines)
+        status = fields.get("status")
+        issues = list(frontmatter_errors)
+        if status is None:
+            issues.append("frontmatter must define status")
+        elif status not in REQUIRED_HEADINGS:
+            issues.append(f"unknown status {status!r}")
+
+        if not issues and status in SETTLED_STATUSES:
+            continue
+
+        documents.append(
+            {
+                "path": path.relative_to(REPOSITORY_ROOT).as_posix(),
+                "status": status,
+                "title": document_title(lines, body_start),
+                "issues": issues,
+            }
+        )
+
+    write_result(
+        True,
+        settled_statuses=sorted(SETTLED_STATUSES),
+        documents=documents,
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

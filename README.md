@@ -97,6 +97,17 @@ guidance document contract and Markdown style:
 ./scripts/validate-guidance
 ```
 
+Query all non-settled guidance as one JSON document with:
+
+```sh
+./scripts/query-unsettled-guidance
+```
+
+Accepted and deprecated guidance is settled. Draft guidance, and guidance with
+a malformed, missing, or unknown status, is included in the query result for
+owner review. Success and execution failures use a versioned JSON envelope;
+exit status `2` identifies an invalid invocation.
+
 The validation uses `uvx` to run the repository-pinned `rumdl` version. To
 apply safe Markdown formatting fixes directly, run:
 
