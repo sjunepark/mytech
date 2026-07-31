@@ -111,7 +111,7 @@ remain human-owned actions unless the user explicitly delegates them.
 Use [External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
 to choose the repository authority and define the Rust protocol boundary. When
 that choice is language-neutral OpenAPI, use
-[OpenAPI 3.2 Contract Compilation and Verification](../architecture/openapi-contract-compilation-and-verification.md)
+[OpenAPI Contract Compilation and Verification](../architecture/openapi-contract-compilation-and-verification.md)
 for the compiler, generation, and conformance pipeline.
 
 ## Revisit when

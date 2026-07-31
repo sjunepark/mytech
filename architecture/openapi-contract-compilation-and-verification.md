@@ -2,32 +2,32 @@
 status: accepted
 ---
 
-# OpenAPI 3.2 Contract Compilation and Verification
+# OpenAPI Contract Compilation and Verification
 
 **Initial evidence:** OpenDART, Seoro
 
 ## Decision
 
 When an external HTTP contract needs a language-neutral repository authority,
-use [OpenAPI 3.2](https://spec.openapis.org/oas/v3.2.0.html) and compile it
-through a repository-owned boundary into a normalized, language-neutral model.
-Produce deterministic target artifacts from that model and verify the path from
+use an OpenAPI dialect supported by its canonical provider source, compiler
+toolchain, and standards-native consumers. Compile it through a repository-owned
+boundary, produce deterministic target artifacts, and verify the path from
 source contract to each consumer.
 
 The compiler boundary and verification pipeline are part of choosing OpenAPI,
-not optional follow-up refinements. They prevent each language generator from
-interpreting the source independently and give standards-native tools one
-verified bundle. Existing parsers, resolvers, validators, and emitters may
-implement the boundary; this decision does not require writing those
-mechanisms from scratch.
+not optional follow-up refinements. Existing parsers, resolvers, validators,
+generators, and emitters may implement the boundary; this decision does not
+require writing those mechanisms from scratch.
 
-OpenAPI 3.2 is the default dialect for project-authored contracts. Pin the exact
-3.2 patch version and the repository-supported feature profile. When a useful
-provider-owned specification uses another dialect, retain it unchanged as
-pinned evidence and import it deterministically into the reviewed 3.2
-authority. The import must preserve every supported semantic or reject the
-unmappable construct; downstream compilation accepts only the canonical 3.2
-package.
+[OpenAPI 3.2](https://spec.openapis.org/oas/v3.2.0.html) is the default dialect
+for a project-authored contract only when the compiler toolchain and every
+standards-native consumer support it. Otherwise choose and pin the dialect that
+serves the current provider and tool contracts. A useful provider-owned
+specification may remain the canonical input in its published dialect. If the
+repository imports or transforms that source, retain the unchanged source as
+pinned evidence and preserve every supported semantic or reject the unmappable
+construct. Do not add dialect conversion only to standardize repository
+internals.
 
 This guidance applies only after a project establishes a concrete need for a
 language-neutral contract. Rust projects use
@@ -40,9 +40,10 @@ Rust-only integrations.
 This decision governs:
 
 - the canonical OpenAPI contract package;
-- the supported OpenAPI 3.2 profile;
+- the selected OpenAPI dialect and supported profile;
 - reference resolution, linting, normalization, and diagnostics;
-- language-neutral operation and schema modeling;
+- language-neutral operation and schema modeling when multiple generators or a
+  demonstrated tool gap require it;
 - deterministic language-specific generation; and
 - verification from the OpenAPI source through generated consumers.
 
@@ -69,22 +70,19 @@ Official specification or reviewed provider evidence
                   Contract compiler
              - load, resolve, lint, bundle
              - enforce the supported profile
-             - produce normalized diagnostics and model
+             - produce diagnostics and verified inputs
                          |
                          v
               +----------+----------+
               |                     |
               v                     v
-   Language-neutral model   Verified OpenAPI bundle
-              |                     |
-              v                     v
-     Language generators    Standards-native tools
-     - wire types           - documentation
-     - serialization        - mocks and gateways
-     - validation           - compatibility analysis
-              |
-              v
-       Protocol modules and SDKs
+   Verified OpenAPI bundle   Deterministic generation
+              |             - pinned direct generator
+              v             - shared model and generators when earned
+   Standards-native tools              |
+   - documentation                     v
+   - mocks and gateways       Protocol modules and SDKs
+   - compatibility analysis
 ```
 
 Only the canonical contract package is edited as the repository authority for
@@ -106,8 +104,9 @@ contracts/<provider>/
 
 Names may follow local conventions, but the roles remain distinct:
 
-- `openapi.yaml` is the reviewed OpenAPI authority for operations, parameters,
-  schemas, responses, authentication shape, and wire serialization.
+- `openapi.yaml` is the reviewed OpenAPI authority in the selected dialect for
+  operations, parameters, schemas, responses, authentication shape, and wire
+  serialization.
 - `manifest.yaml` records provenance, supported scope, known unknowns, compiler
   profile, and policy OpenAPI cannot express cleanly. It references rather than
   redefines operations and schemas owned by OpenAPI.
@@ -118,27 +117,35 @@ Names may follow local conventions, but the roles remain distinct:
   manually.
 
 The owning path is explicit. A directly authored contract changes through
-review. A provider-imported contract changes through a reviewed deterministic
-import from unchanged pinned evidence. The resulting 3.2 contract is the
-repository authority for its supported subset; the provider source remains
-external evidence. Do not quietly patch a provider-owned file and continue
+review. A provider-owned contract changes through a reviewed pin or deterministic
+import from unchanged evidence. The selected canonical package is the
+repository authority for its supported subset; the provider source remains the
+external authority. Do not quietly patch a provider-owned file and continue
 calling it upstream.
 
 External references are pinned or vendored for offline compilation. Reference
 resolution must not perform uncontrolled network access during ordinary builds
-or merge verification. Preserve base-URI semantics, including OpenAPI 3.2
-`$self`, and reject ambiguous or unsafe resolution.
+or merge verification. Preserve the selected dialect's base-URI semantics,
+including OpenAPI 3.2 `$self` when applicable, and reject ambiguous or unsafe
+resolution.
 
 Official specifications are preferred evidence. Bounded observations may fill
 documented gaps only through the owning review path. Unknown behavior stays
 unknown; do not invent response fields, pagination rules, status semantics, or
 error shapes to make compilation easier.
 
-## OpenAPI 3.2 profile
+## OpenAPI dialect and profile
 
-Project-authored authorities declare OpenAPI 3.2 and pin the exact patch
-version accepted by the repository. The compiler supports a deliberate subset,
-not an implicit claim to every construct allowed by the specification.
+Declare and pin the exact source dialect. For a project-authored contract, use
+OpenAPI 3.2 when the compiler toolchain and every standards-native consumer
+support its feature set. A provider-owned or consumer-constrained contract may
+retain another dialect rather than adding an unneeded or lossy conversion. The
+compiler supports a deliberate subset, not an implicit claim to every construct
+allowed by the selected specification.
+
+OpenAPI major and minor versions define feature sets; the patch identifies the
+exact specification text used by the document. Pin source and toolchain versions
+for reproducibility, but do not invent a distinct patch-level feature profile.
 
 The profile must define at least:
 
@@ -161,11 +168,12 @@ without an explicit contract decision.
 
 ## Contract compiler
 
-The compiler is a deep module with a small interface:
+The compiler boundary is a deep module with a small interface:
 
 ```text
-canonical contract package -> normalized model or structured diagnostics
-normalized model           -> deterministic artifacts
+canonical contract package -> verified contract or structured diagnostics
+verified contract          -> deterministic target artifacts
+verified contract          -> normalized model when earned
 ```
 
 It owns these phases behind that interface:
@@ -174,24 +182,31 @@ It owns these phases behind that interface:
 2. resolve references under the repository's offline and origin policy;
 3. validate OpenAPI and the repository-supported profile;
 4. bundle or canonicalize documents when a derivative requires it;
-5. normalize supported semantics into the language-neutral model; and
-6. invoke target generators with pinned configuration.
+5. invoke a pinned direct generator when one target can implement the profile
+   truthfully, or normalize semantics when multiple generators need a shared
+   interpretation; and
+6. produce target artifacts with pinned configuration.
 
 Callers do not depend on parser-library types or reimplement reference,
-serialization, or validation semantics. The compiler may compose existing
-standards-compliant tools, but the repository owns their configuration,
-compatibility checks, diagnostics, and deterministic orchestration.
+serialization, or validation semantics. The compiler boundary may compose
+existing standards-compliant tools, but the repository owns their
+configuration, compatibility checks, diagnostics, and deterministic
+orchestration.
 
-A project-owned compiler is the default ownership boundary and serves all
-local generator targets. Extract a shared compiler only after multiple projects
-demonstrate the same policy-free normalized model and conformance contract.
+A project-owned compiler boundary serves every local target. A separate
+language-neutral model is required when multiple semantic generators need one
+interpretation or when a demonstrated generator gap requires repository-owned
+normalization. Do not introduce it solely because the source is OpenAPI.
+
+Extract a shared compiler only after multiple projects demonstrate the same
+policy-free profile, normalized model when present, and conformance contract.
 Sharing is an organizational decision; compilation is an architectural
 requirement.
 
 ## Normalized model
 
-The normalized model contains only semantics supported consistently by the
-compiler and its generators, including:
+When earned, the normalized model contains only semantics supported
+consistently by the compiler and its generators, including:
 
 - operations and stable operation identities;
 - parameter locations and serialization rules;
@@ -212,9 +227,9 @@ not directly on the OpenAPI parser or syntax tree.
 
 ## Generated and handwritten responsibilities
 
-Every supported language target consumes deterministic artifacts from the
-normalized model. Generate facts that are mechanical consequences of the
-contract:
+Every supported language target consumes deterministic artifacts from either a
+pinned direct generator or the normalized model. Generate facts that are
+mechanical consequences of the contract:
 
 - provider-shaped wire types;
 - operation and parameter identities;
@@ -253,20 +268,21 @@ selected.
 
 Verification is layered so no single implementation certifies itself:
 
-1. **Source verification** validates OpenAPI 3.2, the manifest, reference
-   resolution, the supported profile, and approved extensions.
+1. **Source verification** validates the selected OpenAPI dialect, manifest,
+   reference resolution, supported profile, and approved extensions.
 2. **Independent contract verification** checks externally justified requests,
    responses, and provider failures without using generated artifacts as its
    oracle.
-3. **Compiler verification** tests normalization, structured failure
-   diagnostics, deterministic ordering, and rejected constructs.
-4. **Generator verification** tests each target against normalized-model
-   fixtures and target-language behavior.
+3. **Compiler-boundary verification** tests structured failure diagnostics,
+   deterministic ordering, rejected constructs, and normalization when present.
+4. **Generator verification** tests each target against contract and profile
+   fixtures plus target-language behavior, using normalized-model fixtures when
+   that model exists.
 5. **Freshness verification** regenerates all committed derivatives and fails
    on any diff.
-6. **Cross-target conformance** applies the same independent fixture semantics
-   to every language target so serialization, validation, and response
-   classification do not drift.
+6. **Cross-target conformance**, when multiple semantic targets exist, applies
+   the same independent fixture semantics to each target so serialization,
+   validation, and response classification do not drift.
 7. **Consumer verification** tests each protocol module or SDK only through its
    supported interface.
 8. **Bounded live probes** detect provider drift under explicit credential,
@@ -283,37 +299,39 @@ provider responses.
 
 ## Determinism and evolution
 
-Pin the OpenAPI dialect, compiler dependencies, profile, generator versions,
-and target configuration. Given the same canonical package and toolchain, the
-compiler produces byte-stable committed artifacts or a canonical comparison
-that detects every semantic difference.
+Pin the OpenAPI dialect and source version, compiler dependencies, profile,
+generator versions, and target configuration. Given the same canonical package
+and toolchain, the compiler produces byte-stable committed artifacts or a
+canonical comparison that detects every semantic difference.
 
 A contract change is complete only when all supported targets compile and
 their conformance suites pass. Compatibility reporting may inform review, but
 the owning SDK or API policy decides whether a change is breaking.
 
 Expand the supported profile from concrete provider or consumer needs. Add the
-new source case, normalized representation, diagnostics, every affected target
-mapping, and independent conformance evidence together. Do not accept syntax
-that only one generator understands.
+new source case, diagnostics, every affected target mapping, independent
+conformance evidence, and normalized representation when a normalized model
+exists. Do not accept syntax that an affected target cannot interpret
+truthfully.
 
-OpenAPI patch upgrades and compiler dependency upgrades renew source,
-determinism, and cross-target tests. Minor or major dialect changes require an
-explicit architecture review because the specification permits feature and
-behavior changes across minor versions.
+OpenAPI source-version and compiler dependency upgrades renew source and
+determinism tests, plus cross-target tests when applicable. Minor or major
+dialect changes require an explicit architecture review because they can change
+the supported feature set or behavior.
 
 ## Adoption
 
 An adopting project should:
 
 1. inventory current contract, validation, serialization, and decoding truth;
-2. establish the canonical package, provenance, supported profile, and
-   independent fixtures;
-3. compile the package into the minimal truthful normalized model;
-4. generate one target and prove parity through its supported consumer
-   interface;
+2. establish the consumer-supported dialect, canonical package, provenance,
+   supported profile, and independent fixtures;
+3. generate one target through the simplest truthful compiler boundary and
+   prove parity through its supported consumer interface;
+4. add a normalized model only when multiple semantic generators or a
+   demonstrated generator gap requires it;
 5. add remaining language or standard-artifact generators against the same
-   model and conformance evidence;
+   profile, normalized model when present, and conformance evidence;
 6. enable freshness verification for committed derivatives;
 7. cut over once; and
 8. delete superseded models, validators, generators, fixtures, and tests.
@@ -328,9 +346,9 @@ General derivative ownership follows
 
 ## Revisit when
 
-Reconsider this pipeline when OpenAPI 3.2 cannot represent a required protocol
-truthfully, when another language-neutral format better serves every named
-consumer, or when compilation obscures rather than removes divergent contract
-interpretation. Preserve one authority, independent evidence, deterministic
+Reconsider the selected dialect when it no longer serves a named provider,
+tool, or semantic consumer. Reconsider the normalized model when only one
+generator remains or when direct generation can enforce the same profile more
+clearly. Preserve one authority, independent evidence, deterministic
 derivatives, and source-to-consumer verification even if the format or compiler
 changes.

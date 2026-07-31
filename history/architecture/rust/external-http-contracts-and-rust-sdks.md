@@ -9,11 +9,14 @@ tooling without an independent consumer for them.
 
 The guidance now defaults to a canonical Rust protocol module for Rust-only
 integrations. OpenAPI requires a current independent purpose. Once selected,
-OpenAPI 3.2 compilation, normalized generation, and source-to-consumer
-verification follow the dedicated language-neutral companion guidance; custom
-compiler implementation and cross-project sharing remain earned separately.
-The protocol module, evidence, safety, and verification principles remain
-unchanged.
+the canonical dialect must serve the named provider and tool consumers;
+OpenAPI 3.2 is the default for project-authored contracts only when they support
+it. A repository-owned compiler boundary, deterministic generation, and
+source-to-consumer verification are required. A separate normalized model is
+earned by multiple semantic generators or a demonstrated generator gap rather
+than by OpenAPI alone. Custom implementation and cross-project sharing remain
+separate decisions. The protocol module, evidence, safety, and verification
+principles remain unchanged.
 
 ## 2026-07-31
 

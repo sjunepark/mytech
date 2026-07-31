@@ -14,19 +14,21 @@ behavior from current needs:
 
 - Use the Rust protocol module directly when all current semantic consumers are
   Rust and no independently useful OpenAPI artifact exists.
-- Use OpenAPI when an authoritative provider specification, a current non-Rust
-  or public consumer, or concrete standards-based tooling gives the contract an
-  independent purpose outside the Rust implementation.
+- Use OpenAPI when an authoritative provider specification, a current consumer
+  needs the HTTP contract independently of the Rust module, or concrete
+  standards-based tooling gives the contract another purpose. Select a dialect
+  that every named OpenAPI consumer can use.
 
 Direct Rust is the default for Rust-only integrations. Possible future
 languages, a verifier created only to justify the specification, or generation
 for its own sake do not earn an OpenAPI authority.
 
-Choosing OpenAPI also chooses a compiler boundary, a language-neutral
-normalized model, deterministic target generation, and source-to-consumer
-verification. These are what keep multiple languages from assigning different
-meaning to the same specification. The compiler may compose existing tooling;
-custom implementation and cross-project sharing remain separate decisions.
+Choosing OpenAPI also chooses a repository-owned compiler boundary, a pinned
+profile, deterministic target generation, and source-to-consumer verification.
+Use a pinned direct generator when one semantic target can implement the profile
+truthfully. Add a language-neutral normalized model when multiple semantic
+generators need one interpretation or a demonstrated generator gap requires it.
+Custom implementation and cross-project sharing remain separate decisions.
 
 Give each provider integration one repository authority. Do not maintain
 handwritten Rust and project-authored OpenAPI as co-equal definitions of the
@@ -71,9 +73,9 @@ Use the following current-state test:
 | Condition | Repository authority |
 | --- | --- |
 | All semantic consumers are Rust and no independent standard artifact is needed | Rust protocol module |
-| The provider publishes a trustworthy, usable OpenAPI specification | Canonical OpenAPI contract package |
-| A public or non-Rust consumer needs the HTTP contract | Project-owned OpenAPI contract |
-| Current documentation, mocking, gateway, or compatibility tooling specifically requires OpenAPI | OpenAPI contract, while that need remains real |
+| The provider publishes a trustworthy, usable OpenAPI specification | Canonical OpenAPI package in a dialect the named OpenAPI consumers support |
+| A consumer needs the HTTP contract independently of the Rust module | Project-owned OpenAPI contract in a mutually supported dialect |
+| Current documentation, mocking, gateway, or compatibility tooling specifically requires OpenAPI | OpenAPI contract in the dialect that serves that tool, while the need remains real |
 | Another language might be added later | Rust protocol module until that consumer exists |
 
 Command-line and ingestion executables written in Rust are consumers of the
@@ -124,22 +126,32 @@ derive every test vector from the same Rust metadata it verifies.
 
 ## OpenAPI target shape
 
-When OpenAPI has a named independent purpose, use OpenAPI 3.2 as the default
-dialect for project-authored contracts. Compile the canonical contract through
-a language-neutral normalized model and generate Rust contract artifacts from
-that model before adding handwritten protocol behavior:
+When OpenAPI has a named independent purpose, use OpenAPI 3.2 as the default for
+a project-authored contract only when the compiler toolchain and every
+standards-native consumer support it. A usable provider specification or
+current tool may require another pinned dialect.
+
+Compile the canonical contract through a repository-owned boundary before
+adding handwritten protocol behavior. Use the simplest generation path that
+enforces the selected profile truthfully:
 
 ```text
-Canonical OpenAPI contract
-           |
-           v
-Language-neutral compiler model
-           |
-           v
-Generated Rust contract artifacts
-           |
-           v
-Handwritten Rust protocol boundary
+Canonical OpenAPI contract in a consumer-supported dialect
+                         |
+                         v
+            Verified compiler boundary
+                         |
+             +-----------+-----------+
+             |                       |
+             v                       v
+    Pinned direct generator   Shared model and generator when earned
+             |                       |
+             +-----------+-----------+
+                         v
+            Generated Rust artifacts
+                         |
+                         v
+          Handwritten protocol boundary
 ```
 
 The OpenAPI contract is authoritative for supported wire facts. Generated Rust
@@ -149,9 +161,9 @@ contract; it does not redefine generated structure, serialization, or
 schema-owned validation.
 
 Follow
-[OpenAPI 3.2 Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md)
-for the canonical package, supported profile, normalized model, generation
-boundary, and layered conformance requirements.
+[OpenAPI Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md)
+for the canonical package, supported profile, conditional normalized model,
+generation boundary, and layered conformance requirements.
 
 ## Protocol module
 
@@ -245,9 +257,10 @@ oracle:
 6. Use bounded, credential-aware live probes to detect drift without making
    them the sole merge gate.
 
-The OpenAPI path additionally applies the source, compiler, generator,
-freshness, and cross-target verification defined by
-[OpenAPI 3.2 Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md).
+The OpenAPI path additionally applies the source, compiler-boundary, generator,
+and freshness verification defined by
+[OpenAPI Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md).
+Cross-target verification applies when multiple semantic targets exist.
 Do not add those layers to direct Rust merely to make the verification
 portfolios look symmetrical.
 
@@ -295,17 +308,18 @@ An adopting project should:
 When collapsing project-authored OpenAPI into direct Rust, move useful fixtures
 and behavior tests before deleting the OpenAPI source, generated artifacts,
 compiler, and OpenAPI-only tooling. When a real independent consumer later
-earns OpenAPI, adopt the complete language-neutral compilation pipeline from
-the existing provider evidence and supported behavior rather than maintaining
-both authorities indefinitely.
+earns OpenAPI, adopt the smallest verified compilation path that serves its
+dialect and semantics from the existing provider evidence and supported
+behavior rather than maintaining both authorities indefinitely.
 
 Migration constraints may change sequencing. They do not justify permanent
 parallel authorities.
 
 ## Revisit when
 
-Reconsider the authority when a current non-Rust or public consumer appears,
-an authoritative provider specification becomes usable, standards-based
-tooling becomes materially valuable, or the language-neutral pipeline no longer
-serves its named consumers. Keep the protocol module and independent evidence
-whichever representation owns the contract.
+Reconsider the authority when a current consumer needs the HTTP contract
+independently of the Rust module, an authoritative provider specification
+becomes usable, standards-based tooling becomes materially valuable, or the
+language-neutral pipeline no longer serves its named consumers. Keep the
+protocol module and independent evidence whichever representation owns the
+contract.
