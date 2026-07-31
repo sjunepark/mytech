@@ -1,10 +1,7 @@
 # External HTTP Contracts and Rust SDKs
 
 **Status:** Accepted  
-**Initial adopters:** [OpenDART], [Seoro]
-
-[OpenDART]: https://github.com/cpaikr/opendart
-[Seoro]: https://github.com/cpaikr/seoro
+**Initial evidence:** OpenDART, Seoro
 
 ## Decision
 
@@ -46,7 +43,7 @@ Official documentation + bounded observations
                          |
                          v
              Canonical contract package
-             - provider-native OpenAPI 3.1
+             - repository-selected OpenAPI dialect
              - provenance and support manifest
              - independently authored fixtures
                          |
@@ -94,7 +91,10 @@ contracts/<provider>/
 Names may follow local repository conventions, but the roles must remain
 distinct:
 
-- `openapi.yaml` is the human-maintained, provider-native wire contract.
+- `openapi.yaml` is the reviewed canonical wire contract in the OpenAPI dialect
+  selected and pinned by the repository. Each project declares whether its
+  owning path is direct authoring or repository-controlled generation; changes
+  go through that path.
 - `manifest.yaml` records provenance, known unknowns, repository policy, and
   contract metadata OpenAPI cannot express cleanly. It references but does not
   redefine operations or schemas owned by OpenAPI.
@@ -135,11 +135,10 @@ The normalized model contains only concepts the generators support, including:
 Unsupported or ambiguous OpenAPI constructs fail compilation with source
 locations. They must not be approximated silently.
 
-Both initial adopters should converge on one compiler interface and conformance
-suite. A shared compiler implementation should be extracted when both projects
-can consume it without embedding adopter-specific policy. Until then,
-compatibility is demonstrated through the same fixtures and expected
-normalized output rather than duplicated assumptions.
+A shared compiler is earned when multiple consumers prove they need the same
+policy-free normalized model and conformance contract. Until then, keep the
+compiler project-owned and compare behavior through independently justified
+fixtures rather than extracting around assumed variation.
 
 ## Generated and handwritten responsibilities
 
@@ -245,6 +244,29 @@ The command-line module is a thin adapter. It maps structured protocol errors
 to a structured envelope and stable exit status. It does not revalidate
 requests, reconstruct parameter paths, or translate library error messages.
 
+Agent- and automation-facing command-line behavior follows
+[Automation-Facing CLI Contracts](../../practices/automation-facing-cli-contracts.md).
+Contract discovery and request validation should remain keyless and
+side-effect-free.
+
+## Transport policy
+
+The production transport adapter must choose its behavior explicitly. Do not
+inherit HTTP-library defaults for redirects, retries, ambient proxies,
+decompression, DNS, TLS, or response-size handling without reviewing how they
+affect credential scope, wire fidelity, idempotency, and compatibility.
+
+For a credentialed fixed-origin protocol, add credentials only after validating
+the allowed origin. Never forward them to an unapproved redirect or alternate
+origin; disable redirects unless an explicit policy can preserve that
+invariant. Retries require operation-level evidence that replay is valid.
+Transparent decoding is enabled only when callers do not need the original
+entity bytes and headers.
+
+Compatibility tests should include positive controls proving that safeguards
+can distinguish the unsafe behavior. Dependency upgrades that can change
+transport or parsing behavior renew those focused tests.
+
 ## Verification
 
 Verification is layered so one implementation cannot certify itself:
@@ -268,6 +290,10 @@ Verification is layered so one implementation cannot certify itself:
 
 Fixtures generated from the normalized model may increase coverage, but they
 cannot replace independently authored fixtures.
+
+Provider selection, contract readiness, bounded observations, and production
+enablement follow
+[External Provider Qualification](../../practices/external-provider-qualification.md).
 
 When a new interface-level test replaces tests of an obsolete validation or
 serialization path, delete the old tests. Migration must replace duplicated
@@ -306,30 +332,6 @@ it if doing so creates a second validation path.
 Dependency versions and minimum supported Rust versions remain project release
 decisions. Shared libraries should be aligned when their compatibility
 requirements permit it.
-
-## Project profiles
-
-### OpenDART
-
-- The protocol module is a public SDK with explicit semantic-versioning
-  guarantees.
-- Public request, response, operation, and error types are deliberate exports.
-- The production HTTP adapter may remain feature-gated.
-- The agent-oriented command-line interface consumes the public SDK instead of
-  defining a second protocol model.
-
-### Seoro
-
-- Each provider protocol remains provider-native and internal to catalog
-  ingestion.
-- NLK, Open Library, and later providers do not share artificial wire types.
-- The agent command-line interface and ingestion runtime consume the same
-  protocol module.
-- Provider types stop at the ingestion seam and are translated into Seoro's
-  catalog domain there.
-
-These profiles vary exposure and domain ownership, not contract compilation,
-validation, verification, or structured-error design.
 
 ## Adoption and migration
 

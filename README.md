@@ -18,6 +18,10 @@ requirements and local instructions.
 Link to the relevant document when using it from another project. A project's
 requirements and local instructions take precedence over this repository.
 
+Brief "Initial evidence" annotations record extraction context only. They are
+not dependencies or current-state inventories; each decision must stand on its
+own.
+
 ## Areas
 
 - [`architecture/`](architecture/) contains reusable system shapes, boundaries,
@@ -33,7 +37,34 @@ concrete guidance does not fit an existing one.
 
 ## Current guidance
 
+### Architecture
+
+- [Boundary-Owned Contracts and Pure Cores](architecture/boundary-owned-contracts-and-pure-cores.md)
+- [Canonical Sources and Derived Artifacts](architecture/canonical-sources-and-derived-artifacts.md)
+- [Database Schema Authority](architecture/database-schema-authority.md)
+- [Persist Before External Effects](architecture/persist-before-external-effects.md)
 - [External HTTP Contracts and Rust SDKs](architecture/rust/external-http-contracts-and-rust-sdks.md)
+
+### Libraries
+
+- [Effect for TypeScript Application Runtimes](libraries/typescript/effect.md)
+
+### Stacks
+
+- [SvelteKit, Effect, and PostgreSQL](stacks/typescript/sveltekit-effect-postgresql.md)
+
+### Practices
+
+- [Automation-Facing CLI Contracts](practices/automation-facing-cli-contracts.md)
+- [External Provider Qualification](practices/external-provider-qualification.md)
+- [Repository Documentation States](practices/repository-documentation-states.md)
+- [Verification from Source to Consumer](practices/verification-from-source-to-consumer.md)
+
+## Draft guidance
+
+[`draft/`](draft/) contains plausible preferences that need owner review before
+they become defaults. Drafts are not active guidance and must not be applied to
+another project as policy.
 
 ## Maintaining guidance
 
