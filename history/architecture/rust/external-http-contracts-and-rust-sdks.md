@@ -1,5 +1,16 @@
 # External HTTP Contracts and Rust SDKs History
 
+## 2026-08-02
+
+Reversed the conditional Rust-authority preference. Every external HTTP
+provider integration now keeps a canonical OpenAPI wire contract, including
+Rust-only integrations. Language clients are handwritten conformers rather
+than generated derivatives. A shared fictional, evidence-backed fixture corpus,
+versioned canonical projections, exact expectations, cross-language
+differential checks, and deterministic mutations constrain their behavior.
+Each language separately proves transport safety. Handwritten project policy
+remains explicit without duplicating OpenAPI-owned wire facts.
+
 ## 2026-08-01
 
 The original guidance required project-owned OpenAPI, compilation, and

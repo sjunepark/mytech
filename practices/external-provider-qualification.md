@@ -44,12 +44,13 @@ everything the provider might do. It must distinguish provider-native facts
 from client policy.
 
 Use independently authored fixtures and examples. Generated fixtures can add
-coverage but cannot certify the contract or generator that produced them.
+coverage but cannot certify the contract or implementation that produced them.
 
 Contract verification remains credential-free and offline. Production
 credentials are never required to validate evidence, prepare requests, or test
-the ordinary merge path. On the OpenAPI path, source validation, bundling,
-generation, and freshness checks also remain credential-free.
+the ordinary merge path. OpenAPI validation, bundling, shared conformance,
+differential comparison, mutations, and freshness checks also remain
+credential-free.
 
 ## Bounded probes
 
@@ -108,11 +109,11 @@ remain human-owned actions unless the user explicitly delegates them.
 
 ## Related guidance
 
-Use [External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
-to choose the repository authority and define the Rust protocol boundary. When
-that choice is language-neutral OpenAPI, use
-[OpenAPI Contract Compilation and Verification](../architecture/openapi-contract-compilation-and-verification.md)
-for the compiler, generation, and conformance pipeline.
+Use [OpenAPI Contract Authority and Conformance](../architecture/openapi-contract-compilation-and-verification.md)
+to define the repository wire authority, shared evidence, and cross-language
+verification. Rust implementations also use
+[External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
+for their handwritten protocol and transport boundaries.
 
 ## Revisit when
 

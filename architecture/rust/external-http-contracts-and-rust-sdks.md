@@ -8,51 +8,40 @@ status: accepted
 
 ## Decision
 
-Rust clients of external HTTP providers expose provider behavior through a
-project-owned protocol module. Choose the repository authority for that
-behavior from current needs:
+Rust clients of external HTTP providers use a canonical OpenAPI contract for
+the supported HTTP and wire behavior and expose that behavior through a
+handwritten project-owned protocol module. OpenAPI remains the sole repository
+wire authority even when Rust is the only current implementation.
 
-- Use the Rust protocol module directly when all current semantic consumers are
-  Rust and no independently useful OpenAPI artifact exists.
-- Use OpenAPI when an authoritative provider specification, a current consumer
-  needs the HTTP contract independently of the Rust module, or concrete
-  standards-based tooling gives the contract another purpose. Select a dialect
-  that every named OpenAPI consumer can use.
+Do not generate the Rust client. Handwrite provider-native types,
+serialization, validation, request preparation, response decoding, and
+project-owned errors as conforming implementation details. Verify their
+observable behavior mechanically against the OpenAPI contract, independent
+shared fixtures, and a versioned canonical projection.
 
-Direct Rust is the default for Rust-only integrations. Possible future
-languages, a verifier created only to justify the specification, or generation
-for its own sake do not earn an OpenAPI authority.
+When another language implements the provider, both implementations consume
+the same fixture corpus and emit the same request, outcome, and failure
+projection. CI checks each implementation against independent expectations and
+compares them differentially. Each language still proves its own transport
+safety because agreement at the pure protocol layer cannot certify library or
+runtime behavior.
 
-Choosing OpenAPI also chooses a repository-owned compiler boundary, a pinned
-profile, deterministic target generation, and source-to-consumer verification.
-Use a pinned direct generator when one semantic target can implement the profile
-truthfully. Add a language-neutral normalized model when multiple semantic
-generators need one interpretation or a demonstrated generator gap requires it.
-Custom implementation and cross-project sharing remain separate decisions.
-
-Give each provider integration one repository authority. Do not maintain
-handwritten Rust and project-authored OpenAPI as co-equal definitions of the
-same supported wire behavior. Provider documentation and bounded observations
-remain external evidence in either path; they are not a second repository
-contract.
-
-The authority choice does not change the caller-facing shape. A small protocol
-module still owns request preparation, execution, provider response decoding,
-and project-owned errors. Public exposure, supported operations, provider
-semantics, and migration order remain project-specific.
+OpenAPI owns paths, operations, parameter serialization, authentication shape,
+wire schemas, statuses, media types, and schema validation. Handwritten Rust
+owns transport safety, ergonomics, project policy outside OpenAPI's
+expressiveness, and domain translation. It must not establish a parallel
+manifest or model that duplicates OpenAPI-owned facts.
 
 ## Scope
 
 This decision governs:
 
-- choosing the repository authority for an external provider integration;
-- organizing and verifying provider evidence and fixtures;
-- deciding whether OpenAPI's language-neutral compilation pipeline is
-  justified;
-- validating requests and decoding responses;
+- the Rust implementation of a canonical external-provider OpenAPI contract;
+- request validation, preparation, and response decoding;
+- shared cross-language fixtures and differential conformance;
 - structuring SDK and command-line errors;
 - separating provider protocols from application domains; and
-- testing the protocol module and transport.
+- testing the protocol module and Rust transport.
 
 It does not define:
 
@@ -61,113 +50,41 @@ It does not define:
 - which provider operations a project supports; or
 - whether a Rust protocol module is public or internal.
 
-## Choose the repository authority
-
-The provider owns the external protocol. The repository owns its selected,
-tested representation of the subset it supports. These are different kinds of
-authority: provider sources and observations inform compatibility, while one
-repository path owns implementation changes.
-
-Use the following current-state test:
-
-| Condition | Repository authority |
-| --- | --- |
-| All semantic consumers are Rust and no independent standard artifact is needed | Rust protocol module |
-| The provider publishes a trustworthy, usable OpenAPI specification | Canonical OpenAPI package in a dialect the named OpenAPI consumers support |
-| A consumer needs the HTTP contract independently of the Rust module | Project-owned OpenAPI contract in a mutually supported dialect |
-| Current documentation, mocking, gateway, or compatibility tooling specifically requires OpenAPI | OpenAPI contract in the dialect that serves that tool, while the need remains real |
-| Another language might be added later | Rust protocol module until that consumer exists |
-
-Command-line and ingestion executables written in Rust are consumers of the
-same Rust module, not independent contract consumers. Likewise, an OpenAPI
-compiler or verifier created solely to consume a new OpenAPI file does not make
-the file independently useful.
-
-Record the reason for choosing OpenAPI. Revisit it when the named consumer or
-tool disappears rather than retaining a permanent representation by inertia.
-
-## Direct Rust target shape
-
-Use this shape for a Rust-only integration without an independently justified
-OpenAPI contract:
+## Target shape
 
 ```text
 Official documentation + bounded observations
                          |
                          v
-                 Rust protocol module
-                 - provider-native types
-                 - serialization
-                 - validation
-                 - pure request preparation
-                 - transport execution
-                 - response and error decoding
+              Canonical OpenAPI contract
+                         |
+              +----------+----------+
+              |                     |
+              v                     v
+   Shared fictional fixtures   Independent expectations
+              |                     |
+              +----------+----------+
+                         v
+           Handwritten Rust protocol module
+           - provider-native private types
+           - serialization and validation
+           - pure request preparation
+           - response and error decoding
                          |
                 +--------+---------+
                 |                  |
                 v                  v
-          Command-line adapter   Application or internal SDK
+          Rust transport     test-only projection runner
 ```
-
-The Rust module is the repository authority for supported wire behavior. Rust
-types express structure and requiredness, serialization code expresses wire
-representation, and validation code expresses accepted values and
-relationships. Doc comments explain semantics, provenance, unknowns, and
-non-obvious decisions; they do not replace enforceable types or validation.
-
-Keep provider-native request and response types private by default. Expose a
-small project-owned interface rather than making callers understand wire
-fields, validation dependencies, URL encoding, HTTP-library errors, or provider
-failure envelopes.
-
-Independently justified fixtures and request examples test the Rust authority.
-They are evidence and test oracles, not a parallel contract definition. Do not
-derive every test vector from the same Rust metadata it verifies.
-
-## OpenAPI target shape
-
-When OpenAPI has a named independent purpose, use OpenAPI 3.2 as the default for
-a project-authored contract only when the compiler toolchain and every
-standards-native consumer support it. A usable provider specification or
-current tool may require another pinned dialect.
-
-Compile the canonical contract through a repository-owned boundary before
-adding handwritten protocol behavior. Use the simplest generation path that
-enforces the selected profile truthfully:
-
-```text
-Canonical OpenAPI contract in a consumer-supported dialect
-                         |
-                         v
-            Verified compiler boundary
-                         |
-             +-----------+-----------+
-             |                       |
-             v                       v
-    Pinned direct generator   Shared model and generator when earned
-             |                       |
-             +-----------+-----------+
-                         v
-            Generated Rust artifacts
-                         |
-                         v
-          Handwritten protocol boundary
-```
-
-The OpenAPI contract is authoritative for supported wire facts. Generated Rust
-is a private deterministic derivative. Handwritten Rust owns transport,
-ergonomics, project policy, and semantics deliberately outside the wire
-contract; it does not redefine generated structure, serialization, or
-schema-owned validation.
 
 Follow
-[OpenAPI Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md)
-for the canonical package, supported profile, conditional normalized model,
-generation boundary, and layered conformance requirements.
+[OpenAPI Contract Authority and Conformance](../openapi-contract-compilation-and-verification.md)
+for contract ownership, the canonical package, shared fixtures, projection
+versioning, cross-language checks, mutations, and evolution.
 
 ## Protocol module
 
-Both authority paths converge on the same deep module. Request preparation is
+The protocol module is a deep handwritten boundary. Request preparation is
 pure:
 
 ```text
@@ -177,32 +94,65 @@ request -> prepared request or PrepareError
 A prepared request has passed deterministic validation and serialization.
 Preparing it performs no network I/O and does not require credentials.
 
+Keep provider-native request and response types private by default. Expose a
+small project-owned interface rather than making callers understand wire
+fields, validation dependencies, URL encoding, HTTP-library errors, or provider
+failure envelopes.
+
 Execution uses a private or internal transport seam when real variation or
-focused testing requires one. Production uses an HTTP adapter. Provider-specific
-response and failure decoding stays inside the protocol module.
+focused testing requires one. Production uses an HTTP adapter.
+Provider-specific response and failure decoding stays inside the protocol
+module.
 
 Do not publish a transport trait backed by only one implementation merely to
 anticipate future variation. Local HTTP fixtures often test the real transport
 behavior more directly.
 
-## Validation
+## Authority and handwritten implementation
 
-Give each validation rule one owner.
+Rust types and functions implement wire facts, but they do not own them. A
+wire-affecting change begins in the canonical OpenAPI contract, updates the
+shared fixture expectation when behavior changes, and then updates every
+handwritten conformer. Rust-only tests may add implementation coverage but must
+not become the sole oracle for shared wire behavior.
 
-For direct Rust, encode structural invariants in types where practical and own
-remaining field, aggregate, or cross-field rules in the protocol module. Garde
-or explicit validation may implement those rules privately.
+Give each validation rule one semantic owner:
 
-For OpenAPI, generate schema-owned validation through the selected compiler
-profile. Handwritten validation owns only project policy or semantics that the
-OpenAPI authority does not claim. Do not repeat schema rules as independent
-handwritten attributes.
+- OpenAPI owns structural constraints, requiredness, formats, enumerations,
+  parameter serialization, and other supported protocol rules.
+- Handwritten project policy owns only constraints OpenAPI cannot express
+  truthfully, such as cross-provider acceptance policy, safety budgets, or
+  semantic result selection.
 
-Translate validation failures into project-owned errors. Machine-facing
-interfaces use stable classifications or rule codes and parameter paths when
-callers need that detail. Human-readable messages are diagnostics, not
-identifiers. Error details must not expose credentials, authenticated
-coordinates, or unsafe request values.
+Rust may encode OpenAPI-owned rules with types, Serde attributes, Garde, or
+explicit validation. Those are conforming implementation mechanics, not an
+independent authority. Do not repeat the same rule in a Rust-owned manifest or
+fixture set. Translate all failures into project-owned errors at the protocol
+interface.
+
+## Shared conformance
+
+The Rust test-only runner consumes every case in the provider's shared fixture
+corpus and emits the repository's versioned canonical JSON projection. At
+minimum, project the prepared method, path, parameters, relevant headers, media
+type, and body; decoded success or provider failure; stable failure
+classification; and shared validation issues.
+
+Keep the runner credential-free and deterministic. It must not expose Rust type
+names, dependency errors, map-order accidents, or display strings as shared
+semantics.
+
+CI verifies:
+
+1. the canonical OpenAPI source and supported profile;
+2. every Rust projection against its independent expected result;
+3. exact differential equality with every other language conformer;
+4. complete fixture identity coverage for all supported implementations; and
+5. deterministic mutations that prove protected differences are detected.
+
+Differential agreement cannot replace independent expectations because two
+implementations can share a mistake. Rust-specific unit and property tests may
+increase coverage but do not replace the shared corpus.
 
 ## Errors and command-line adapters
 
@@ -227,48 +177,24 @@ Contract discovery and request preparation remain keyless and side-effect-free.
 ## Transport policy
 
 The production HTTP adapter chooses redirects, retries, ambient proxies,
-decompression, DNS, TLS, and response-size behavior explicitly. Review how each
-choice affects credential scope, wire fidelity, idempotency, and compatibility
-rather than inheriting library defaults accidentally.
+decompression, DNS, TLS, and response-size behavior explicitly. Review how
+each choice affects credential scope, wire fidelity, idempotency, and
+compatibility rather than inheriting library defaults accidentally.
 
 For a credentialed fixed-origin protocol, add credentials only after validating
 the allowed origin. Never forward them to an unapproved redirect or alternate
 origin; disable redirects unless an explicit policy can preserve that
 invariant. Retries require operation-level evidence that replay is valid.
 
-Compatibility tests include positive controls proving that safeguards can
-distinguish unsafe behavior. Dependency upgrades that can change transport or
-parsing behavior renew those focused tests.
+Test the actual Rust transport independently against a local server for status,
+headers, encoding, redirects, retries, size limits, timeouts, decompression,
+malformed responses, and redaction as applicable. Include positive controls
+that prove safeguards distinguish unsafe behavior. A TypeScript or other
+language transport passing its tests provides no evidence for Rust transport
+behavior.
 
-## Verification
-
-Both paths use independent evidence so the implementation is not its only
-oracle:
-
-1. Verify provider provenance, selected operations, known unknowns, and safety
-   policy.
-2. Test independently justified request examples and response fixtures.
-3. Test observable preparation and decoding through the protocol module's
-   interface.
-4. Exercise the production transport against a local server for status,
-   headers, encoding, size limits, timeouts, and malformed responses.
-5. Test the public SDK or command-line contract without reaching past its
-   interface.
-6. Use bounded, credential-aware live probes to detect drift without making
-   them the sole merge gate.
-
-The OpenAPI path additionally applies the source, compiler-boundary, generator,
-and freshness verification defined by
-[OpenAPI Contract Compilation and Verification](../openapi-contract-compilation-and-verification.md).
-Cross-target verification applies when multiple semantic targets exist.
-Do not add those layers to direct Rust merely to make the verification
-portfolios look symmetrical.
-
-Fixtures generated from Rust or a normalized model may increase coverage, but
-they do not replace independently justified examples.
-
-Provider selection, bounded observations, and production enablement follow
-[External Provider Qualification](../../practices/external-provider-qualification.md).
+Dependency upgrades that can change transport or parsing behavior renew these
+focused tests.
 
 ## Reference Rust technology profile
 
@@ -285,41 +211,35 @@ constraint requires an exception:
 Runtime-independent preparation does not require an HTTP client or asynchronous
 runtime. Public crates may feature-gate the production transport adapter.
 
-Garde is optional private machinery. In direct Rust it may own field,
-aggregate, or cross-field rules when its derive and reporting remove meaningful
-handwritten complexity. In an OpenAPI-generated path, schema-derived Garde
-attributes must be generated rather than independently repeated. Convert Garde
-reports into project-owned errors at the protocol interface.
+Garde is optional private machinery. It may implement field, aggregate, or
+cross-field rules when its derive and reporting remove meaningful handwritten
+complexity. Whether implemented through Garde or explicit code, OpenAPI-owned
+rules remain subordinate to the shared conformance suite. Convert Garde reports
+into project-owned errors at the protocol interface.
 
 ## Adoption and migration
 
-An adopting project should:
+An adopting Rust project should:
 
 1. inventory every current source of wire, validation, and error behavior;
-2. choose Rust or OpenAPI from current consumers and tooling, then name the one
-   repository authority;
-3. establish independently justified fixtures and provenance;
-4. introduce the selected path behind the protocol module's interface;
-5. use temporary parity checks only when replacing an existing path;
-6. cut over once and delete superseded models, validators, generators,
-   fixtures, and tests; and
-7. keep project-specific milestones in the project's own plan.
-
-When collapsing project-authored OpenAPI into direct Rust, move useful fixtures
-and behavior tests before deleting the OpenAPI source, generated artifacts,
-compiler, and OpenAPI-only tooling. When a real independent consumer later
-earns OpenAPI, adopt the smallest verified compilation path that serves its
-dialect and semantics from the existing provider evidence and supported
-behavior rather than maintaining both authorities indefinitely.
+2. establish the canonical OpenAPI contract and shared evidence corpus;
+3. define the versioned canonical projection and independent expectations;
+4. bring the handwritten Rust protocol module into conformance;
+5. test the real Rust transport independently;
+6. add differential comparison when another language exists;
+7. cut over once; and
+8. delete superseded Rust wire authorities, duplicated fixture sets, and
+   generated client pipelines.
 
 Migration constraints may change sequencing. They do not justify permanent
 parallel authorities.
 
+Provider selection, bounded observations, and production enablement follow
+[External Provider Qualification](../../practices/external-provider-qualification.md).
+
 ## Revisit when
 
-Reconsider the authority when a current consumer needs the HTTP contract
-independently of the Rust module, an authoritative provider specification
-becomes usable, standards-based tooling becomes materially valuable, or the
-language-neutral pipeline no longer serves its named consumers. Keep the
-protocol module and independent evidence whichever representation owns the
-contract.
+Reconsider the implementation machinery when handwritten conformance cannot be
+maintained truthfully or economically. Preserve the canonical OpenAPI wire
+authority, independent shared evidence, protocol boundary, and Rust-specific
+transport-safety proof even if the client implementation technique changes.

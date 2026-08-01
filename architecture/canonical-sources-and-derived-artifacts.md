@@ -28,10 +28,11 @@ A canonical source must be:
 - explicit about unknown, inferred, and externally sourced facts.
 
 Executable code may be canonical when all current consumers use that code and
-an independent standard artifact has no concrete purpose. For example, a Rust
-protocol module may own a Rust-only provider contract while external source
-material and independently authored fixtures verify compatibility without
-becoming a second contract authority.
+an independent standard artifact has no concrete purpose. External HTTP
+provider contracts are a deliberate exception: keep a language-neutral OpenAPI
+contract as the wire authority even when only one language currently implements
+it. Handwritten clients conform through shared independent evidence rather than
+owning the same wire facts.
 
 Do not let generated code, database mappings, screenshots, caches, runtime
 projections, or deployed copies silently become parallel authorities.
