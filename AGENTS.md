@@ -17,7 +17,12 @@
 
 ## Maintaining guidance
 
-- Keep the active document focused on the current preference.
+- Follow the guidance document contract in `README.md`. Keep each active
+  document focused on one coherent reusable preference, and remove or link
+  detail that is project-specific, independently owned, procedural, or
+  historical.
+- When consolidating guidance, re-distill the surviving preference rather than
+  concatenating prior content. Link shared rules to their owning document.
 - Record useful change rationale in a file under `history/` that mirrors the
   active document's relative path.
 - Keep history entries brief and dated. Rely on Git for exact diffs.

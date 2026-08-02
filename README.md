@@ -44,6 +44,7 @@ concrete guidance does not fit an existing one.
 - [Database Schema Authority](architecture/database-schema-authority.md)
 - [Persist Before External Effects](architecture/persist-before-external-effects.md)
 - [External HTTP Contracts and Handwritten Clients](architecture/external-http-contracts-and-handwritten-clients.md)
+- [Rust for External HTTP Protocol Implementations](architecture/rust-for-external-http-protocols.md)
 
 ### Libraries
 
@@ -81,6 +82,19 @@ Allowed statuses and required sections are:
 - `accepted`: `Decision` and `Revisit when`;
 - `draft`: `Tentative preference`, `Why this is uncertain`, `Promotion
   questions`, and `If accepted`.
+
+An accepted document records one coherent reusable preference. Keep only the
+rationale and stable constraints needed to decide whether and how to apply it.
+Use additional sections when they materially clarify ownership, invariants, or
+safe application.
+
+Active guidance is not a project implementation guide, migration plan,
+exhaustive verification catalog, or change log. Link shared rules to their
+owning guidance instead of restating them, keep project-specific procedures in
+the consuming project, and keep useful change rationale under `history/`.
+
+When consolidating documents, re-distill them around the surviving preference.
+Do not preserve sections merely because they appeared in the source documents.
 
 Accepted guidance belongs under an active area. Draft guidance belongs under
 `draft/`. Routing READMEs and history notes are not guidance and do not use

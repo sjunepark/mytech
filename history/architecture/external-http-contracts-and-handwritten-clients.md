@@ -2,27 +2,18 @@
 
 ## 2026-08-02
 
-Consolidated the overlapping language-neutral and Rust-specific guidance into
-one policy. OpenAPI remains the canonical wire contract even with one language
-because implementation types and runtime behavior do not state the complete,
-portable HTTP contract clearly enough. Each language implementation is now
-individually handwritten; client generation, including repository-owned custom
-emitters, is deliberately excluded.
+Separated Rust language selection into
+[Rust for External HTTP Protocol Implementations](../../architecture/rust-for-external-http-protocols.md)
+because it can be reconsidered independently. Distilled this guidance around
+OpenAPI authority, handwritten conformance, ownership, and verification without
+changing those preferences.
 
-Rust is the default when no consumer ecosystem, platform, runtime, deployment,
-or organizational constraint favors another language. The preference is based
-on type-enforced protocol and capability states, explicit transport behavior,
-and typed sanitized failures. It does not prescribe Rust for OpenAPI tooling or
-all consumers. Multiple implementations share fixtures, independent expected
-projections, and differential checks while retaining idiomatic public APIs and
-language-specific transport verification.
-
-Earlier the same day, the guidance reversed a conditional Rust-authority
-preference and made OpenAPI canonical for every external provider integration.
-It replaced generated clients with conforming implementations verified through
-shared fictional evidence, versioned projections, independent expectations,
-differential comparison, deterministic mutations, and per-language transport
-tests.
+Earlier the same day, made OpenAPI canonical for every external provider
+integration, reversing a conditional Rust-authority preference. Replaced
+generated clients with individually handwritten conformers. Multiple
+implementations share fictional evidence, independent expectations, canonical
+projections, and differential checks while retaining language-specific
+transport verification.
 
 OpenDART informed the Rust rationale and language-neutral conformance design,
 but its repository-owned custom generation was intentionally not adopted as
