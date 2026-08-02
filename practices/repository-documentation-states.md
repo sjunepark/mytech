@@ -62,6 +62,17 @@ Prefer:
 Avoid duplicating DTOs, function lists, directory inventories, test totals,
 dependency versions, and transient milestone status.
 
+## Replacement and history
+
+When current guidance is replaced, update its consumers and delete the
+superseded document. Do not keep redirect or tombstone guidance in active
+documentation areas. Preserve useful change rationale in the matching
+`history/` path; Git retains the exact prior document.
+
+Prefer stable guidance paths when the subject remains the same. Rename a path
+when the old name would misrepresent the current decision, accepting that a
+personal reference repository does not maintain permanent compatibility URLs.
+
 ## Plans and progress
 
 Maintain active plans in place. Keep current decisions, completed work,

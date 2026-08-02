@@ -8,7 +8,7 @@ from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 ACTIVE_AREAS = ("architecture", "libraries", "practices", "stacks")
-SETTLED_STATUSES = frozenset({"accepted", "deprecated"})
+SETTLED_STATUSES = frozenset({"accepted"})
 ALLOWED_FRONTMATTER_FIELDS = {"status"}
 REQUIRED_HEADINGS = {
     "accepted": ("Decision", "Revisit when"),
@@ -18,7 +18,6 @@ REQUIRED_HEADINGS = {
         "Promotion questions",
         "If accepted",
     ),
-    "deprecated": ("Replacement", "Rationale"),
 }
 
 
@@ -29,7 +28,7 @@ def guidance_documents() -> list[tuple[Path, set[str]]]:
     for area in ACTIVE_AREAS:
         for path in sorted((REPOSITORY_ROOT / area).rglob("*.md")):
             if path.name != "README.md":
-                documents.append((path, {"accepted", "deprecated"}))
+                documents.append((path, {"accepted"}))
 
     for path in sorted((REPOSITORY_ROOT / "draft").rglob("*.md")):
         if path.name != "README.md":

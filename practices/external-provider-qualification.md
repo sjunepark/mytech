@@ -109,11 +109,10 @@ remain human-owned actions unless the user explicitly delegates them.
 
 ## Related guidance
 
-Use [OpenAPI Contract Authority and Conformance](../architecture/openapi-contract-compilation-and-verification.md)
-to define the repository wire authority, shared evidence, and cross-language
-verification. Rust implementations also use
-[External HTTP Contracts and Rust SDKs](../architecture/rust/external-http-contracts-and-rust-sdks.md)
-for their handwritten protocol and transport boundaries.
+Use
+[External HTTP Contracts and Handwritten Clients](../architecture/external-http-contracts-and-handwritten-clients.md)
+to define the repository wire authority, handwritten protocol boundaries,
+shared evidence, and cross-language verification.
 
 ## Revisit when
 

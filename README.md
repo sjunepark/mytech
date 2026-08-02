@@ -43,8 +43,7 @@ concrete guidance does not fit an existing one.
 - [Canonical Sources and Derived Artifacts](architecture/canonical-sources-and-derived-artifacts.md)
 - [Database Schema Authority](architecture/database-schema-authority.md)
 - [Persist Before External Effects](architecture/persist-before-external-effects.md)
-- [External HTTP Contracts and Rust SDKs](architecture/rust/external-http-contracts-and-rust-sdks.md)
-- [OpenAPI Contract Authority and Conformance](architecture/openapi-contract-compilation-and-verification.md)
+- [External HTTP Contracts and Handwritten Clients](architecture/external-http-contracts-and-handwritten-clients.md)
 
 ### Libraries
 
@@ -81,12 +80,11 @@ Allowed statuses and required sections are:
 
 - `accepted`: `Decision` and `Revisit when`;
 - `draft`: `Tentative preference`, `Why this is uncertain`, `Promotion
-  questions`, and `If accepted`; and
-- `deprecated`: `Replacement` with a link and `Rationale`.
+  questions`, and `If accepted`.
 
-Accepted and deprecated guidance belongs under an active area. Draft guidance
-belongs under `draft/`. Routing READMEs and history notes are not guidance and
-do not use this frontmatter.
+Accepted guidance belongs under an active area. Draft guidance belongs under
+`draft/`. Routing READMEs and history notes are not guidance and do not use
+this frontmatter.
 
 Do not duplicate titles, areas, technology versions, evidence inventories, or
 review dates in frontmatter. Paths and document content own that information.
@@ -104,10 +102,10 @@ Query all non-settled guidance as one JSON document with:
 ./scripts/query-unsettled-guidance
 ```
 
-Accepted and deprecated guidance is settled. Draft guidance, and guidance with
-a malformed, missing, or unknown status, is included in the query result for
-owner review. Success and execution failures use a versioned JSON envelope;
-exit status `2` identifies an invalid invocation.
+Accepted guidance is settled. Draft guidance, and guidance with a malformed,
+missing, or unknown status, is included in the query result for owner review.
+Success and execution failures use a versioned JSON envelope; exit status `2`
+identifies an invalid invocation.
 
 The validation uses `uvx` to run the repository-pinned `rumdl` version. To
 apply safe Markdown formatting fixes directly, run:
@@ -120,6 +118,10 @@ apply safe Markdown formatting fixes directly, run:
 
 Active documents describe current preferences. Update them in place when a
 preference changes.
+
+When guidance is replaced, update its consumers and delete the superseded
+document. Do not keep redirect or tombstone guidance in active areas. Preserve
+useful change rationale under `history/`; Git retains exact prior content.
 
 When the reason for a meaningful change will remain useful, add a brief dated
 note under [`history/`](history/) at the same relative path as the active

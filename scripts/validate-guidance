@@ -81,12 +81,6 @@ def validate_document(path: Path, allowed_statuses: set[str]) -> list[str]:
                     f"status {status!r} requires heading '## {required_heading}'"
                 )
 
-    if status == "deprecated":
-        if "Replacement" in sections:
-            replacement = "\n".join(sections["Replacement"])
-            if re.search(r"\[[^\]]+\]\([^)]+\)", replacement) is None:
-                errors.append("deprecated guidance must link to its replacement")
-
     return errors
 
 
