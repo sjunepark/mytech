@@ -18,19 +18,12 @@ Prefer pnpm for reproducible Node dependency preparation, public-package
 consumer workflows, and environments where Node compatibility is itself part
 of the contract.
 
-Use Oxfmt and Oxlint for fast general TypeScript and JavaScript quality gates,
-retaining a syntax-aware formatter or linter where framework files require it.
-
 ## Why this is uncertain
 
-The repositories intentionally use different package managers:
-
-- one application monorepo uses Bun as its main command and workspace tool;
-- a public Node package uses pnpm and runs on Node; and
-- an accepted web stack selects pnpm and Node.
-
-This may be a deliberate role-based policy or merely current project history.
-The evidence also does not establish one universal test runner.
+The repositories use Bun for a private application monorepo and pnpm with Node
+for public-package and accepted web-stack roles. This may be a durable
+role-based policy or merely current project history. The evidence does not
+establish one universal test runner.
 
 ## Promotion questions
 
@@ -39,7 +32,6 @@ The evidence also does not establish one universal test runner.
   application monorepos that benefit from it?
 - Should public packages always test a clean Node consumer regardless of the
   repository's package manager?
-- Are Oxfmt and Oxlint general defaults, or choices to reevaluate per framework?
 - Is exact tool pinning required only for prerelease or behavior-defining tools,
   or for the entire JavaScript toolchain?
 

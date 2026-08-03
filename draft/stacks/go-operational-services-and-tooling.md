@@ -12,15 +12,11 @@ Prefer Go for long-lived private repository tooling and narrow network or data
 plane services when the dominant needs are operational robustness, explicit
 concurrency, portable binaries, standard protocols, and low framework overhead.
 
-Keep command entry points thin. Put parsing, policy, provider integration,
-database access, validation, and reporting behind internal packages. Prefer the
-standard library at process and network boundaries; add focused dependencies
-only when they remove protocol or infrastructure complexity the project should
-not own.
-
-Confine third-party models behind project-owned interfaces. A private Go module
-does not become a public consumer API merely because it produces public
-artifacts.
+Prefer the standard library at process and network boundaries; add focused
+dependencies only when they remove protocol or infrastructure complexity the
+project should not own. Apply the project-owned interfaces and dependency
+containment in
+[Boundary-Owned Contracts and Pure Cores](../../architecture/boundary-owned-contracts-and-pure-cores.md).
 
 ## Why this is uncertain
 

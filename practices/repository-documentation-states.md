@@ -51,58 +51,35 @@ Keep parent documents to routing, system-wide invariants, and high-signal
 orientation. Put subsystem details near the code or ownership boundary they
 describe.
 
-Prefer:
-
-- one canonical explanation with links from other docs;
-- paths to entry points instead of file-by-file inventories;
-- stable identities and invariants instead of volatile counts;
-- concise examples that illustrate a contract; and
-- links to source code for implementation details discoverable there.
+Prefer one canonical explanation, paths to entry points, stable identities and
+invariants, and concise contract examples. Link to source code for discoverable
+implementation details.
 
 Avoid duplicating DTOs, function lists, directory inventories, test totals,
 dependency versions, and transient milestone status.
 
-## Replacement and history
+## Lifecycle
 
-When current guidance is replaced, update its consumers and delete the
-superseded document. Do not keep redirect or tombstone guidance in active
-documentation areas. Preserve useful change rationale in the matching
-`history/` path; Git retains the exact prior document.
+Maintain active documents in place and update their consumers when the truth
+changes. Remove superseded active documents and preserve only useful rationale
+through the repository's history convention.
 
-Prefer stable guidance paths when the subject remains the same. Rename a path
-when the old name would misrepresent the current decision, accepting that a
-personal reference repository does not maintain permanent compatibility URLs.
+Keep a stable path while its subject remains the same. Rename it when the old
+path would misrepresent the current decision rather than maintaining a redirect.
 
-## Plans and progress
+Keep plans to current decisions, completed work, validation, blockers, and the
+next action; compress execution transcripts and close a plan once its durable
+content belongs in architecture, a runbook, or a decision record.
 
-Maintain active plans in place. Keep current decisions, completed work,
-validation, blockers, and the next action. Compress prior execution notes rather
-than appending session transcripts.
-
-Close or archive a plan when its remaining information belongs in current
-architecture, a runbook, or a decision record.
-
-## Decision records
-
-Create a decision record when a choice is costly to reverse or easy for a
-future maintainer to undo accidentally. A useful record answers:
-
-- what was decided;
-- why the alternatives were rejected;
-- what consequences and boundaries follow; and
-- what evidence would justify revisiting it.
-
-Do not use decision records as implementation status trackers.
+Use decision records for choices that are costly to reverse or easy to undo
+accidentally. Record the decision, rejected alternatives, consequences, and
+revisit evidence, but not implementation status.
 
 ## Mechanical checks
 
-Where documentation is a contract, validate it. Useful checks include:
-
-- link and Markdown validation;
-- frontmatter or schema validation;
-- generated-document freshness;
-- public package-content checks; and
-- tests that compare documented command or protocol examples with behavior.
+Mechanically validate documentation that consumers depend on, including its
+links, schema, generated freshness, published contents, or executable examples
+as applicable.
 
 ## Revisit when
 

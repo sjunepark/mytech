@@ -18,42 +18,22 @@ need to pretend it is one language project.
 
 ## Verification layers
 
-Select the layers the product actually needs:
+Select only the layers needed for the product's risks:
 
-1. **Source checks** validate schemas, contracts, migrations, configuration,
-   manifests, and local references.
-2. **Pure logic tests** cover normalization, policy, transformations, and
-   deterministic projections.
-3. **Independent fixtures** establish externally justified examples without
-   using generated output as the oracle.
-4. **Generation checks** prove deterministic output, complete identity coverage,
-   and committed freshness.
-5. **Boundary integration tests** exercise real process, IPC, HTTP, filesystem,
-   database, or browser behavior.
-6. **Packaged-consumer tests** install the actual distributable into a clean
-   consumer and use only its supported surface.
-7. **Target-native inspection** examines the artifact recipients receive, such
-   as a produced PDF, package archive, binary file, or deployed schema.
-8. **Bounded live probes** detect provider drift without becoming the sole
-   merge gate.
+- validate canonical schemas, contracts, migrations, configuration, manifests,
+  and references;
+- test deterministic logic and generation against independent evidence,
+  committed freshness, and exact identity-set coverage rather than copied
+  totals;
+- exercise the real boundary closest to the claim, such as a browser, database,
+  external process, local server, filesystem, IPC bridge, or operating-system
+  behavior; and
+- install the actual distributable into a clean consumer through its supported
+  surface, then inspect the final package, binary, document, or deployed schema
+  recipients receive.
 
-Use exact identity-set comparison instead of copied totals. A new canonical
-item should fail verification wherever coverage is incomplete.
-
-## Real boundaries
-
-Choose the closest practical test to the user-visible risk:
-
-- pure tests for deterministic logic;
-- a real browser for interaction and layout;
-- a disposable real database for database semantics;
-- an external process for CLI contracts;
-- a local server or transport adapter for HTTP behavior;
-- a packed package for exports, peer dependencies, and install behavior; and
-- the final rendered format for delivery correctness.
-
-Mocks remain useful inside a boundary. They must not replace the engine,
-serialization, packaging, or operating-system behavior the claim depends on.
+Mocks remain useful inside a boundary, but cannot replace the engine,
+serialization, packaging, or platform behavior the claim depends on.
 
 ## Adversarial evidence
 
@@ -64,43 +44,34 @@ redaction, feature unification, rollback, or cleanup.
 Inject failures across staging, commit, cleanup, interruption, and recovery.
 Assert both the primary failure and the state left for users or operators.
 
-Behavior-defining dependency upgrades require renewed focused evidence when they
-can change wire bytes, retries, TLS, DNS, parsing, resource lifetime, database
-mapping, or credential handling.
+Renew focused evidence after dependency upgrades that can change wire behavior,
+resource lifetimes, database mapping, credential handling, or another tested
+boundary.
 
-## Command tiers
+## Execution
 
-Provide tiers with clear purposes:
-
-- a focused edit loop;
-- a complete pre-push or pull-request contract; and
-- an exhaustive, scheduled, or platform-specific portfolio.
-
-Fetch dependencies explicitly, then run reproducible gates offline when
-practical. CI should invoke the same repository-owned contracts as local work
-rather than reimplementing policy in workflow YAML.
+Expose focused edit, complete pre-push, and exhaustive or platform-specific
+tiers when needed. Fetch dependencies explicitly, run reproducible gates
+offline when practical, and have CI invoke the same repository-owned contracts
+as local work.
 
 ## Distribution and release
 
-Before release:
-
-- inspect the exact package or archive contents;
-- verify public exports and absence of private or secret material;
-- install and exercise it from a clean consumer;
-- bind artifacts to source revision and canonical input provenance; and
-- verify tag, declared version, and checkout identity before publication.
-
-Prefer short-lived trusted-publishing credentials over retained registry tokens.
-Version independently supported contracts independently, even when one
-repository produces them from the same source.
+Before release, inspect exact artifact contents and public exports, verify the
+absence of private or secret material, exercise a clean consumer, bind artifacts
+to source and canonical-input provenance, and reconcile the tag, declared
+version, and checkout identity. Prefer short-lived trusted publishing over
+retained registry tokens. Version independently supported contracts
+independently.
 
 ## Live checks
 
-Credentialed or network-dependent checks are separate from ordinary merge
-verification. They are bounded, sanitized, rate-aware, and paired with a
-credential-free preflight. Treat their failure as owned evidence, not
-best-effort noise, while avoiding a requirement that every local contributor
-possess production access.
+Keep credentialed or network-dependent checks separate from ordinary merge
+verification so contributors do not need production access, and treat failures
+as owned evidence rather than best-effort noise. Follow
+[External Provider Qualification](external-provider-qualification.md) for
+bounded preflight, sanitization, rate limits, evidence handling, and production
+authority.
 
 ## Revisit when
 
