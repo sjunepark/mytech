@@ -72,6 +72,7 @@ They are evidence-backed descriptions, not guidance to apply by default.
 - [How ChatGPT Desktop Uses the Codex Runtime](reference/chatgpt-desktop-and-codex-runtime.md)
 - [Korean OCR Options for Agent Ingestion](reference/korean-ocr-options-for-agent-ingestion.md)
 - [PDF-to-Agent Parsing Landscape](reference/pdf-to-agent-parsing-landscape.md)
+- [Xberg PDF Ingestion Usage](reference/xberg-pdf-ingestion-usage.md)
 
 ## Draft guidance
 

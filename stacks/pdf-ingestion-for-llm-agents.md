@@ -31,6 +31,10 @@ Use Xberg's native PDF path first. Enable its layout-informed Markdown with an
 automatic page-selection strategy when a corpus contains multicolumn pages,
 tables, forms, or other structure that the fast path may miss.
 
+Use the exact installation, ordinary conversion, Korean OCR, and layout
+commands in
+[Xberg PDF Ingestion Usage](../reference/xberg-pdf-ingestion-usage.md).
+
 Keep [Docling](https://github.com/docling-project/docling) as the independent,
 quality-first local fallback. Its layout and table models are more central to
 its standard PDF pipeline, its ecosystem is substantially larger, and its rich
