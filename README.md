@@ -54,6 +54,7 @@ concrete guidance does not fit an existing one.
 
 ### Stacks
 
+- [PDF Ingestion for LLM Agents](stacks/pdf-ingestion-for-llm-agents.md)
 - [SvelteKit, Effect, and PostgreSQL](stacks/typescript/sveltekit-effect-postgresql.md)
 
 ### Practices
@@ -69,6 +70,8 @@ Reference notes preserve useful system understanding and observed behavior.
 They are evidence-backed descriptions, not guidance to apply by default.
 
 - [How ChatGPT Desktop Uses the Codex Runtime](reference/chatgpt-desktop-and-codex-runtime.md)
+- [Korean OCR Options for Agent Ingestion](reference/korean-ocr-options-for-agent-ingestion.md)
+- [PDF-to-Agent Parsing Landscape](reference/pdf-to-agent-parsing-landscape.md)
 
 ## Draft guidance
 
