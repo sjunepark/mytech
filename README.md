@@ -31,6 +31,8 @@ own.
 - [`stacks/`](stacks/) contains preferred combinations of technologies.
 - [`practices/`](practices/) contains reusable engineering, tooling, and
   workflow guidance.
+- [`reference/`](reference/) contains descriptive technical knowledge that is
+  useful across projects but is not a preference or policy.
 
 The areas are intentionally broad and shallow. Add another area only when
 concrete guidance does not fit an existing one.
@@ -60,6 +62,13 @@ concrete guidance does not fit an existing one.
 - [External Provider Qualification](practices/external-provider-qualification.md)
 - [Repository Documentation States](practices/repository-documentation-states.md)
 - [Verification from Source to Consumer](practices/verification-from-source-to-consumer.md)
+
+## Reference knowledge
+
+Reference notes preserve useful system understanding and observed behavior.
+They are evidence-backed descriptions, not guidance to apply by default.
+
+- [How ChatGPT Desktop Uses the Codex Runtime](reference/chatgpt-desktop-and-codex-runtime.md)
 
 ## Draft guidance
 
