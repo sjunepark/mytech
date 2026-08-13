@@ -50,6 +50,9 @@ concrete guidance does not fit an existing one.
 
 ### Libraries
 
+- [Kong for Go Command-Line Interfaces](libraries/go/cli.md)
+- [Clap for Rust Command-Line Interfaces](libraries/rust/cli.md)
+- [Effect CLI for TypeScript Command-Line Interfaces](libraries/typescript/cli.md)
 - [Effect for TypeScript Application Runtimes](libraries/typescript/effect.md)
 
 ### Stacks
