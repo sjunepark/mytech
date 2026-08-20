@@ -14,6 +14,8 @@ Drafts are proposals awaiting review. Reference notes describe useful system
 knowledge rather than preferences. History is outside the normal reading path
 and matters only when the reason a preference changed is relevant.
 
+Rewrite guidance: [Code rewrites](practices/code-rewrites.md).
+
 ## Guidance document contract
 
 Guidance documents declare one status:
