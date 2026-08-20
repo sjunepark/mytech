@@ -38,7 +38,12 @@ Give each rule one semantic owner. Do not add a language-owned manifest,
 fixture set, or model that becomes a parallel authority for OpenAPI-owned
 facts. Keep provider-native wire types and dependency failures behind the
 project-owned protocol boundary described in
-[Boundary-Owned Contracts and Pure Cores](boundary-owned-contracts-and-pure-cores.md).
+[Boundary-Owned Contracts and Pure Cores](../boundary-owned-contracts-and-pure-cores.md).
+
+A language binding or facade that delegates all wire behavior to an existing
+conformer is not another language implementation. For the preferred Node.js
+shape over a Rust conformer, follow
+[Rust Cores for Node.js HTTP SDKs](rust-cores-for-nodejs-http-sdks.md).
 
 ## Verification
 
@@ -56,11 +61,11 @@ and compare conformers exactly. Public APIs and internal structures may remain
 idiomatic to their languages.
 
 Apply the broader verification portfolio in
-[Verification from Source to Consumer](../practices/verification-from-source-to-consumer.md).
+[Verification from Source to Consumer](../../practices/verification-from-source-to-consumer.md).
 Provider evidence and production enablement follow
-[External Provider Qualification](../practices/external-provider-qualification.md),
+[External Provider Qualification](../../practices/external-provider-qualification.md),
 and general source ownership follows
-[Canonical Sources and Derived Artifacts](canonical-sources-and-derived-artifacts.md).
+[Canonical Sources and Derived Artifacts](../canonical-sources-and-derived-artifacts.md).
 
 ## Revisit when
 

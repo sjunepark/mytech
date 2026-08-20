@@ -3,7 +3,7 @@
 ## 2026-08-02
 
 Separated Rust language selection into
-[Rust for External HTTP Protocol Implementations](../../architecture/rust-for-external-http-protocols.md)
+[Rust for External HTTP Protocol Implementations](../../../architecture/external-http/rust-for-external-http-protocols.md)
 because it can be reconsidered independently. Distilled this guidance around
 OpenAPI authority, handwritten conformance, ownership, and verification without
 changing those preferences.

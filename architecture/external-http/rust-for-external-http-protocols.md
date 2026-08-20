@@ -24,6 +24,9 @@ pipelines, applications, or every consumer of the protocol. Contract authority
 and client conformance follow
 [External HTTP Contracts and Handwritten Clients](external-http-contracts-and-handwritten-clients.md).
 
+When a Node.js project consumes the Rust implementation, follow
+[Rust Cores for Node.js HTTP SDKs](rust-cores-for-nodejs-http-sdks.md).
+
 ## Revisit when
 
 Prefer another language when its ecosystem, platform support, runtime

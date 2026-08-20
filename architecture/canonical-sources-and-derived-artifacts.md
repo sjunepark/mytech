@@ -30,7 +30,7 @@ authority with independently justified evidence rather than letting it certify
 itself.
 
 External HTTP contracts follow
-[External HTTP Contracts and Handwritten Clients](external-http-contracts-and-handwritten-clients.md).
+[External HTTP Contracts and Handwritten Clients](external-http/external-http-contracts-and-handwritten-clients.md).
 
 Do not let generated code, database mappings, screenshots, caches, runtime
 projections, or deployed copies silently become parallel authorities.

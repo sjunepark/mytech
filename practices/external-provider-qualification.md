@@ -110,7 +110,7 @@ remain human-owned actions unless the user explicitly delegates them.
 ## Related guidance
 
 Use
-[External HTTP Contracts and Handwritten Clients](../architecture/external-http-contracts-and-handwritten-clients.md)
+[External HTTP Contracts and Handwritten Clients](../architecture/external-http/external-http-contracts-and-handwritten-clients.md)
 to define the repository wire authority, handwritten protocol boundaries,
 shared evidence, and cross-language verification.
 
