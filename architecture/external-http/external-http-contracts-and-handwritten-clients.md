@@ -41,9 +41,14 @@ project-owned protocol boundary described in
 [Boundary-Owned Contracts and Pure Cores](../boundary-owned-contracts-and-pure-cores.md).
 
 A language binding or facade that delegates all wire behavior to an existing
-conformer is not another language implementation. For the preferred Node.js
-shape over a Rust conformer, follow
-[Rust Cores for Node.js HTTP SDKs](rust-cores-for-nodejs-http-sdks.md).
+conformer is not another language implementation. The conformer continues to
+own request preparation, authentication, transport policy, safety bounds,
+retries, response decoding, domain translation, and sanitized failure
+semantics; the binding and facade own boundary translation and
+consumer-language ergonomics, not wire behavior.
+For the preferred Node.js or Python binding shape over a Rust conformer, follow
+[Rust Cores for Node.js Packages](../rust-cores-for-nodejs-packages.md) or
+[Rust Cores for Python Packages](../rust-cores-for-python-packages.md).
 
 ## Verification
 

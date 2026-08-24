@@ -16,8 +16,15 @@ and matters only when the reason a preference changed is relevant.
 
 Rewrite guidance: [Code rewrites](practices/code-rewrites.md).
 
+CI guidance:
+[Cost-aware CI platform coverage](practices/cost-aware-ci-platform-coverage.md).
+
 CLI distribution guidance:
 [Standalone CLI distribution](practices/standalone-cli-distribution.md).
+
+Rust-backed native package guidance:
+[Node.js](architecture/rust-cores-for-nodejs-packages.md) and
+[Python](architecture/rust-cores-for-python-packages.md).
 
 ## Guidance document contract
 
