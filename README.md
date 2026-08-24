@@ -16,6 +16,9 @@ and matters only when the reason a preference changed is relevant.
 
 Rewrite guidance: [Code rewrites](practices/code-rewrites.md).
 
+CLI distribution guidance:
+[Standalone CLI distribution](practices/standalone-cli-distribution.md).
+
 ## Guidance document contract
 
 Guidance documents declare one status:
