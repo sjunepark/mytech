@@ -34,9 +34,10 @@ execute the package.
 
 ## Why this is uncertain
 
-The boundary is implemented in one desktop product. Other scanned repositories
-support process-contract and path-safety principles, but not installable local
-tool packages.
+Package validation and supervised execution establish different guarantees.
+The unresolved decision is whether packages are trusted owner-authored code or
+potentially hostile third-party code, and which platforms can enforce the
+promised execution restrictions. A manifest declaration is not enforcement.
 
 ## Promotion questions
 

@@ -47,9 +47,12 @@ Public and cross-module interfaces use project-owned:
 - operation and artifact identities; and
 - result envelopes when a process boundary is involved.
 
-Dependency types stay inside their adapter. An OpenAPI parser, HTTP client, ORM,
-validation library, Effect runtime, Electron object, or UI framework must not
-become the accidental vocabulary of unrelated callers.
+Translate dependency types where semantic ownership or compatibility promises
+change. An HTTP client, ORM, Electron object, or UI framework must not become
+the accidental vocabulary of unrelated callers. Modules intentionally sharing
+an internal runtime may use its types directly; Effect-returning application
+services do not need wrappers between every module. A stable standard type
+does not need a project-owned copy merely to rename it.
 
 Human-readable messages are diagnostics, not control-flow identifiers. Callers
 must not parse display strings or dependency errors to decide retry, recovery,

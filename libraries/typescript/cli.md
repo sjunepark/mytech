@@ -9,29 +9,32 @@ KASB, and Landprice
 
 ## Decision
 
-For TypeScript command-line applications using Effect v4, use
-`effect/unstable/cli` as the default command parser and runtime integration. Its
-typed arguments, flags, subcommands, handlers, prompts, help, and completion fit
-the same Effect program and error model described in
-[Effect for TypeScript Application Runtimes](effect.md).
+For a TypeScript CLI already using Effect, prefer the CLI library compatible
+with its chosen Effect major version. Share its existing resource, error, and
+runtime model rather than introducing another composition root.
 
-Do not use the separate `@effect/cli` package for Effect v4. Pin the compatible
-Effect v4 beta version exactly and keep parser construction behind the CLI
-boundary: Effect v4 remains prerelease and `effect/unstable/*` APIs may change in
-minor releases.
+For Effect v4, this is `effect/unstable/cli`; the separate `@effect/cli` package
+belongs to the v3 ecosystem. Follow the
+[upstream migration guide](https://github.com/Effect-TS/effect/blob/main/MIGRATION.md)
+when changing majors. Do not adopt or upgrade Effect solely to obtain a command
+parser. Existing v3 applications can keep their compatible CLI integration
+until a deliberate application migration.
 
-For a standalone CLI that should not adopt Effect, use Commander with
-`@commander-js/extra-typings`. Use oclif only when the product concretely needs a
-larger extensible CLI platform such as plugins, hooks, generators, installers,
-or auto-update infrastructure.
+Keep unstable parser APIs at the CLI boundary. Pin a compatible exact package
+set when using prereleases, and treat unstable-module upgrades as explicit
+compatibility work. CLI selection does not require a prerelease runtime.
 
-Keep process output separate from library logging and presentation help. For
-commands used by agents or automation, follow
-[Automation-Facing CLI Contracts](../../practices/automation-facing-cli-contracts.md).
+For a CLI that does not otherwise benefit from Effect, prefer Commander with
+`@commander-js/extra-typings`. Use oclif when concrete plugin, hook, or command
+platform requirements outweigh a smaller parser's simplicity.
+
+Keep application operations separate from parser construction. Follow
+[Effect runtime guidance](effect.md) for composition and
+[Automation-Facing CLI Contracts](../../practices/automation-facing-cli-contracts.md)
+for output, errors, artifacts, and automation.
 
 ## Revisit when
 
-Reconsider the unstable Effect CLI default if migration churn exceeds the value
-of sharing Effect's typed configuration, errors, services, and lifecycle. When
-Effect v4 and its CLI API stabilize, relax exact pins only under the repository's
-normal lockfile and upgrade policy.
+Change parsers when required command behavior or recurring compatibility work
+outweighs the existing integration. Evaluate the application's need for Effect
+separately from the quality of its CLI parser.

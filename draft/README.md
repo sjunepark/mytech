@@ -8,6 +8,11 @@ constrain another project. Each draft records why the interpretation is
 uncertain and the questions that decide whether it should be promoted, revised,
 or removed.
 
+One well-understood use can justify a narrow preference. Promotion depends on
+clear applicability, tradeoffs, and evidence, not a minimum project count.
+These drafts remain proposals because their role or operating guarantees need
+resolution; the repository-wide review does not make them universal defaults.
+
 ## Drafts
 
 ### Architecture

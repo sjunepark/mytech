@@ -32,7 +32,9 @@ become operational state unless the product explicitly requires their retention.
 
 For messages, notifications, indexing, or other follow-on delivery, commit the
 domain change and an outbox record in the same transaction. A dispatcher
-processes committed records outside the user request and may retry safely.
+processes committed records outside the user request. Delivery is generally
+at least once: use an idempotent receiver or durable deduplication where repeats
+would have consequences. An outbox alone does not make delivery exactly once.
 
 Consumers reconcile from durable history and tolerate duplicate or missed
 delivery events. Delivery infrastructure is replaceable and cannot become a
@@ -46,12 +48,21 @@ When an external call may incur cost or produce an irreversible result:
 2. persist an admitted operation with its safe identity and accounting basis;
 3. perform the bounded external call;
 4. finalize the durable result and append accounting entries; and
-5. enqueue durable recovery if external success is known but finalization
+5. recover unfinished admitted operations from durable state when finalization
    cannot complete.
 
-Exact retries must not repeat the upstream call or debit. Ambiguous failures
-need an explicit reconciliation policy; broad automatic retry is not a safe
-default.
+The admitted record must be discoverable without successfully writing another
+recovery job after a database failure. A crash after provider success but before
+local finalization leaves an uncertain outcome, even if the caller saw only a
+timeout.
+
+Return a durably finalized outcome for an exact retry without another debit.
+If reconciliation confirms provider success, finalize that existing result
+without invoking the operation again. Retry an unfinished upstream operation
+only when provider idempotency covers the retry window or evidence proves it
+did not execute. Otherwise preserve an explicit uncertain state for
+reconciliation instead of claiming exactly-once behavior. Enforce local
+accounting uniqueness independently of delivery attempts.
 
 Prefer append-only accounting records with correction entries over mutable
 balances. Cached balances are derived read models until measured query needs

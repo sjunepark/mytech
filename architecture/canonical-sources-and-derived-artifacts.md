@@ -51,9 +51,11 @@ projection path, a freshness or reconciliation check, and a rule for whether it
 is committed, cached, or built on demand. Preserve enough provenance to identify
 the input and generator contract.
 
-Do not repair poor generated output with a permanent handwritten compatibility
-layer. Correct the canonical model, normalized model, or generator so every
-consumer receives the same fix.
+Do not repair incorrect generated facts with permanent handwritten patches.
+Correct the canonical model, normalized model, or generator so every consumer
+receives the same fix. A handwritten adapter that deliberately offers a
+different consumer contract remains legitimate; it must not silently correct
+the authority it consumes.
 
 Migration may use temporary parity checks, but its target has one authority and
 one final path. After cutover, remove superseded sources, generators,
@@ -75,9 +77,12 @@ the unit the system can replace atomically.
 
 Use the portfolio in
 [Verification from Source to Consumer](../practices/verification-from-source-to-consumer.md).
-Every derivative must identify its input and generator, reconcile
-deterministically with exact identity coverage, and rely on independent evidence
-where an authority and its projection could share the same mistaken assumption.
+Every derivative must identify its input, generation path, promised scope, and
+freshness or reconciliation rule. Require exact reproduction and identity
+coverage when the projection promises determinism. For lossy or model-produced
+artifacts, validate coverage and quality against the retained source rather
+than pretending a repeat run must produce identical bytes. Use independent
+evidence where an authority and projection could share a mistaken assumption.
 
 ## Revisit when
 

@@ -26,9 +26,10 @@ machine-local state.
 
 ## Why this is uncertain
 
-The architecture is implemented deeply, but only one scanned product provides
-evidence for the complete stack. The reusable process and capability boundaries
-are strong; the choice of Electron and Svelte may still be product-specific.
+The process and capability boundaries are reusable. The complete stack still
+depends on the product's native integration, accessibility, startup and memory
+budgets, supported platforms, and distribution constraints. Those requirements
+should select the shell independently of renderer preference.
 
 ## Promotion questions
 

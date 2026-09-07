@@ -28,8 +28,8 @@ Expose a small project-owned API rather than Rust internals or dependency
 types. Expose Rust asynchronous operations as `asyncio` awaitables without
 blocking the event loop. Use a maintained bridge for the chosen Rust runtime,
 normally
-[pyo3-async-runtimes](https://github.com/PyO3/pyo3-async-runtimes) while direct
-PyO3 async support remains experimental. A synchronous blocking or CPU-bound
+[pyo3-async-runtimes](https://github.com/PyO3/pyo3-async-runtimes), after checking
+compatibility with the selected PyO3 release. A synchronous blocking or CPU-bound
 operation may remain synchronous when that fits Python consumer expectations,
 but detach it from the interpreter while Rust performs the work. Make
 cancellation propagation, client lifetime, and cleanup explicit where an
@@ -40,8 +40,11 @@ lifetime.
 Translate expected Rust failures into a stable project-owned Python exception
 hierarchy with bounded safe context. Do not expose credentials, unrestricted
 external payloads, dependency errors, or panic details. Treat a Rust panic as a
-defect that must be contained at the native boundary rather than allowed to
-terminate or destabilize the interpreter.
+defect. Contain unwinding panics at the binding boundary and verify the behavior
+under the release build's panic strategy. An abort cannot be translated into a
+Python exception; use process isolation if surviving native crashes is a
+required consumer guarantee. See Rust's
+[panic containment limits](https://doc.rust-lang.org/std/panic/fn.catch_unwind.html).
 
 Keep dependency types behind the boundary described in
 [Boundary-Owned Contracts and Pure Cores](boundary-owned-contracts-and-pure-cores.md).

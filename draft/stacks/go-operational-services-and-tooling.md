@@ -20,9 +20,10 @@ containment in
 
 ## Why this is uncertain
 
-The source projects use Go for different roles: one for contract and repository
-tooling, another for a provider gateway data plane. That may reveal a broad
-language preference, or it may only show that Go fit two independent problems.
+The source projects use Go for contract tooling and a provider gateway. The
+unresolved question is when a separately owned Go executable is better than
+keeping a capability in its consuming application's language. Explicit
+concurrency and portable binaries are useful only when the role needs them.
 
 The evidence does not establish Go as the default for application domains,
 workers, public SDKs, desktop code, or all command-line tools.

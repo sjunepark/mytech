@@ -1,5 +1,9 @@
 # PDF Ingestion for LLM Agents History
 
+## 2026-09-05
+
+Kept Xberg as the initial local candidate and Docling as an independent comparison, while grounding selection in corpus quality rather than language, popularity, or unqualified rankings. Moved transient engine detail into references and kept provenance, source fidelity, and escalation in the preference.
+
 ## 2026-08-12
 
 Promoted Xberg from the independent fast path to the ordinary local default.

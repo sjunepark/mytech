@@ -8,12 +8,17 @@ status: draft
 
 ## Tentative preference
 
-For small, document-shaped local application state, begin with versioned JSON
-instead of an embedded database.
+For portable authored documents or small configuration records with one owning
+writer, begin with versioned JSON. For relational operational state, begin by
+evaluating SQLite even when the data set is small. Size alone does not decide
+the storage contract.
 
 Validate the complete record at read and write boundaries. Use one owning
 writer, publish with same-directory temporary files and atomic replacement, and
-preserve the last valid state on failure.
+preserve the last valid state on failure. Atomic replacement prevents partial
+visibility; crash durability still needs an explicit flush, backup, and recovery
+policy appropriate to the filesystem. Multiple application instances must not
+silently invalidate the single-writer assumption.
 
 Keep portable authored documents separate from execution history, caches,
 secrets, renderer state, and machine-local profiles.
@@ -24,20 +29,15 @@ or data volume outweigh whole-document simplicity.
 
 ## Why this is uncertain
 
-The decision is implemented and well tested in one desktop product, but the
-other scanned repositories do not provide comparable local application-state
-requirements.
+The originating product used document-shaped state. That does not establish a
+default for relational run history or concurrent local applications. The
+unresolved boundary is the required transaction, recovery, and writer model.
 
 ## Promotion questions
 
-- Is JSON the preferred starting point for all small local-first application
-  state, or only for portable authored documents?
-- What kinds of data must use a database immediately even at small scale?
-- Is a single owning process or writer a required condition?
-- Should migrations rewrite documents eagerly, lazily, or only through explicit
-  user action?
-- What recovery and backup guarantees should exist before this becomes a
-  general default?
+- Which state must remain a portable, user-editable document?
+- What cross-record invariants and concurrent access must the storage support?
+- What loss, recovery, backup, and migration guarantees must survive a crash?
 
 ## If accepted
 

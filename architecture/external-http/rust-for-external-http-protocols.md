@@ -8,30 +8,32 @@ status: accepted
 
 ## Decision
 
-Prefer Rust for a new external HTTP protocol implementation or SDK when no
-consumer ecosystem, target platform, runtime, deployment, or organizational
-constraint favors another language.
+Start an application-specific HTTP adapter in the consuming application's
+language. Network I/O alone does not justify a second runtime, native bindings,
+or a new distribution matrix.
 
-Rust is a useful default because its types can distinguish protocol and
-capability states, constrain credential-bearing values, and express sanitized
-failures while keeping transport behavior explicit. These advantages favor
-correctness, reviewability, and maintainability; they do not make Rust
-universally appropriate.
+Prefer Rust for an independently owned protocol core when concrete consumers
+benefit from sharing that implementation, when a standalone native artifact is
+required, or when demonstrated parsing, resource-control, or performance needs
+justify it. Rust remains a strong choice for such a core: explicit ownership
+and types help express protocol states and constrain credential-bearing data.
+Those benefits must survive the consumer and packaging boundary.
 
-Choose the language separately for each role. This preference applies to the
-protocol implementation, not to OpenAPI maintenance tools, documentation
-pipelines, applications, or every consumer of the protocol. Contract authority
-and client conformance follow
-[External HTTP Contracts and Handwritten Clients](external-http-contracts-and-handwritten-clients.md).
+Consider the whole lifecycle: cancellation, diagnostics, build targets,
+installation, releases, and maintainer ownership. Prefer one implementation
+when it reduces total obligations; two thin idiomatic adapters may be simpler
+than maintaining a native bridge for a trivial protocol.
 
-When a Node.js or Python project consumes the Rust implementation, follow the
-corresponding binding guidance:
-
-- [Rust Cores for Node.js Packages](../rust-cores-for-nodejs-packages.md)
-- [Rust Cores for Python Packages](../rust-cores-for-python-packages.md)
+Choose language separately from contract authority. Follow
+[External HTTP Contracts and Handwritten Clients](external-http-contracts-and-handwritten-clients.md)
+for the wire contract and verification, and the
+[Node.js](../rust-cores-for-nodejs-packages.md) or
+[Python](../rust-cores-for-python-packages.md) binding guidance for an already
+justified Rust core.
 
 ## Revisit when
 
-Prefer another language when its ecosystem, platform support, runtime
-integration, deployment model, or team ownership materially improves the
-protocol's use and maintenance.
+Extract a shared core when duplicated behavior or measured resource needs make
+the native boundary worthwhile. Reconsider it when platform support, callback
+coordination, release work, or consumer friction exceeds the complexity it
+removes. Language preference alone is not a migration reason.

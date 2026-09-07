@@ -8,7 +8,7 @@ status: accepted
 
 ## Decision
 
-Use one database-change system as the authority for every database object.
+Use one database-change system as the authority for every project-owned database object.
 Typed query mappings, generated snapshots, and language-specific clients are
 consumers of that authority, not alternate schema definitions.
 
@@ -55,6 +55,13 @@ Prefer narrow function execution or relation privileges over broad ownership.
 
 Do not migrate automatically during ordinary application startup. Deployment
 should apply and verify schema changes before a runtime depends on them.
+
+When old and new runtimes coexist, expand the schema compatibly, migrate or
+backfill data, move consumers, and only then remove the old contract. Deployment
+ordering alone does not make a destructive migration safe. Define the supported
+rollback window; prefer a forward repair when reverting would discard data or
+break a still-supported consumer. Provider-managed objects remain under their
+provider's ownership.
 
 Direct client access changes the security boundary. If a browser, mobile
 client, PostgREST-style interface, or other untrusted caller gains table access,

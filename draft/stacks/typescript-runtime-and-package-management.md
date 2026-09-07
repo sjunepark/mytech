@@ -20,10 +20,11 @@ of the contract.
 
 ## Why this is uncertain
 
-The repositories use Bun for a private application monorepo and pnpm with Node
-for public-package and accepted web-stack roles. This may be a durable
-role-based policy or merely current project history. The evidence does not
-establish one universal test runner.
+Runtime compatibility and dependency installation are separate contracts.
+Using Bun to run development commands does not establish that a package works
+in Node; using pnpm does not itself select a runtime. The unresolved preference
+is whether the ergonomic benefit of an additional tool justifies maintaining
+both paths. The evidence does not establish one universal test runner.
 
 ## Promotion questions
 

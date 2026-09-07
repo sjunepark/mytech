@@ -49,8 +49,9 @@ coverage but cannot certify the contract or implementation that produced them.
 Contract verification remains credential-free and offline. Production
 credentials are never required to validate evidence, prepare requests, or test
 the ordinary merge path. OpenAPI validation, bundling, shared conformance,
-differential comparison, mutations, and freshness checks also remain
-credential-free.
+differential comparison, mutation tests, and local generated-artifact freshness
+checks also remain credential-free. Checking whether a live provider changed
+belongs to bounded observation, separate from the ordinary merge gate.
 
 ## Bounded probes
 
@@ -111,8 +112,8 @@ remain human-owned actions unless the user explicitly delegates them.
 
 Use
 [External HTTP Contracts and Handwritten Clients](../architecture/external-http/external-http-contracts-and-handwritten-clients.md)
-to define the repository wire authority, handwritten protocol boundaries,
-shared evidence, and cross-language verification.
+to select a proportionate wire authority, contain SDK or client behavior,
+and define independent conformance evidence.
 
 ## Revisit when
 

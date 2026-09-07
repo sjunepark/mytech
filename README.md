@@ -1,34 +1,50 @@
 # mytech
 
-This repository records my current reusable technical preferences and design
-decisions. They provide a consistent starting point, not a substitute for the
-requirements and local instructions of the project applying them.
+This repository records reusable technical preferences. They are starting
+points for decisions, not requirements imposed on every consuming project.
+Project requirements and local instructions take precedence.
 
-## Using the guidance
+## Decision posture
 
-Search by topic and read only the documents relevant to the decision at hand.
-Accepted guidance is the default starting point; project-specific requirements
-take precedence. Link to the relevant document when applying it elsewhere.
+Prefer clear ownership, explicit failure and recovery, and verification through
+real consumer boundaries. Start with the existing language and platform when
+they satisfy the need. Add a runtime, service, schema, binding, or release
+mechanism when it removes more durable complexity than it creates.
 
-Drafts are proposals awaiting review. Reference notes describe useful system
-knowledge rather than preferences. History is outside the normal reading path
-and matters only when the reason a preference changed is relevant.
+Judge a choice by correctness, maintainability, operating behavior, and consumer
+fit. Initial implementation speed is secondary, but additional build targets,
+upgrade coupling, concepts, and failure modes are long-term costs. A preference
+breaks a tie; it does not substitute for evidence or justify a rewrite by itself.
 
-Rewrite guidance: [Code rewrites](practices/code-rewrites.md).
+## Find guidance
 
-CI guidance:
-[Cost-aware CI platform coverage](practices/cost-aware-ci-platform-coverage.md).
+| Decision | Accepted guidance |
+| --- | --- |
+| Application shape | [Boundaries and pure cores](architecture/boundary-owned-contracts-and-pure-cores.md); [SvelteKit, Effect, PostgreSQL](stacks/typescript/sveltekit-effect-postgresql.md) |
+| TypeScript orchestration | [Effect](libraries/typescript/effect.md) |
+| HTTP integrations | [Contracts and clients](architecture/external-http/external-http-contracts-and-handwritten-clients.md); [when Rust earns a core](architecture/external-http/rust-for-external-http-protocols.md); [provider qualification](practices/external-provider-qualification.md) |
+| Durable state | [Database authority](architecture/database-schema-authority.md); [persist before external effects](architecture/persist-before-external-effects.md) |
+| Generated and ingested artifacts | [Canonical sources](architecture/canonical-sources-and-derived-artifacts.md); [PDF ingestion](stacks/pdf-ingestion-for-llm-agents.md) |
+| Native packages | Rust cores for [Node.js](architecture/rust-cores-for-nodejs-packages.md) and [Python](architecture/rust-cores-for-python-packages.md) |
+| CLI parsers | [TypeScript](libraries/typescript/cli.md); [Rust](libraries/rust/cli.md); [Go](libraries/go/cli.md) |
+| CLI delivery | [Automation contracts](practices/automation-facing-cli-contracts.md); [standalone distribution](practices/standalone-cli-distribution.md) |
+| Verification and CI | [Source to consumer](practices/verification-from-source-to-consumer.md); [platform coverage](practices/cost-aware-ci-platform-coverage.md) |
+| Changing a project | [Rewrites](practices/code-rewrites.md); [documentation states](practices/repository-documentation-states.md) |
 
-CLI distribution guidance:
-[Standalone CLI distribution](practices/standalone-cli-distribution.md).
+Read only what the decision needs and link to its owner when applying it.
+[Drafts](draft/README.md) are proposals, not defaults. Reference notes preserve
+dated evidence or usage instructions; history explains meaningful preference
+changes and stays outside the normal reading path.
 
-Rust-backed native package guidance:
-[Node.js](architecture/rust-cores-for-nodejs-packages.md) and
-[Python](architecture/rust-cores-for-python-packages.md).
+For descriptive system knowledge, see the dated
+[desktop/Codex runtime observation](reference/chatgpt-desktop-and-codex-runtime.md).
+
+The [2026-09-05 review](reference/technology-preferences-review.md) gives a
+candid assessment of the choices and the revisions made during the review.
 
 ## Guidance document contract
 
-Guidance documents declare one status:
+Guidance starts with exactly this restricted frontmatter form:
 
 ```yaml
 ---
@@ -36,23 +52,39 @@ status: accepted
 ---
 ```
 
-- `accepted` documents contain `Decision` and `Revisit when` sections.
-- `draft` documents contain `Tentative preference`, `Why this is uncertain`,
-  `Promotion questions`, and `If accepted` sections.
+Use `status: draft` for proposals. No other frontmatter fields are supported.
+The body starts with a level-one title; required sections are level two.
 
-Each document should capture one coherent reusable preference and only the
-rationale and stable constraints needed to apply it. Keep project-specific
-procedures, implementation plans, verification catalogs, and change history in
-their owning locations instead.
+- `accepted` belongs in `architecture/`, `libraries/`, `practices/`, or `stacks/`
+  and requires `Decision` and `Revisit when` sections.
+- `draft` belongs under `draft/` and requires `Tentative preference`,
+  `Why this is uncertain`, `Promotion questions`, and `If accepted` sections.
+- Routing READMEs, references, and history are outside this lifecycle schema.
 
-## Maintaining guidance
+Each guidance document owns one coherent preference with its rationale,
+applicability, and stable constraints. Project procedures, delivery plans, and
+historical evidence belong elsewhere. Initial-evidence project names record
+provenance; they do not prove those projects currently implement the guidance.
 
-Update guidance in place as preferences change. When guidance is replaced,
-update its consumers and remove the superseded document. Preserve only useful
-change rationale in a brief dated history note; Git retains exact prior content.
+## Maintenance and checks
 
-After changing guidance, run:
+Update guidance in place. Re-distill overlapping preferences rather than
+concatenating them, update consumers, and preserve meaningful change rationale
+in a brief dated `history/` file mirroring the guidance path. Git retains exact
+diffs. Promote a draft when its scope and tradeoffs are resolved, not merely
+because it appeared in more repositories.
+
+Use Python 3.10 or newer and `uv` (providing `uvx`). The lint wrapper selects its
+pinned rumdl version and may download it on first use. Run:
 
 ```sh
 ./scripts/validate-guidance
+./scripts/query-unsettled-guidance
 ```
+
+Validation checks guidance placement and headings, runs script regression
+tests, and lints Markdown including relative links. The query emits one JSON
+document listing drafts and invalid lifecycle metadata or placement; it does
+not replace full validation. Neither command verifies external links or the
+truth of technology claims. Checks currently run locally; this repository has
+no configured CI gate.

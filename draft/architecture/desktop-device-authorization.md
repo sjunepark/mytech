@@ -30,9 +30,10 @@ incident response.
 
 ## Why this is uncertain
 
-The pattern is implemented in one product. It is not yet clear whether it is
-the preferred default over an established device-authorization standard,
-loopback redirect, custom URI scheme, or platform credential broker.
+Channel separation is useful, but it does not justify owning an authentication
+protocol. A provider-supported system-browser authorization flow or standard
+device flow should be evaluated before a custom polling protocol. The missing
+decision is which provider and platform constraints actually require this shape.
 
 ## Promotion questions
 

@@ -9,9 +9,9 @@ from pathlib import Path
 
 from guidance_contract import (
     REPOSITORY_ROOT,
-    REQUIRED_HEADINGS,
     SETTLED_STATUSES,
     guidance_documents,
+    lifecycle_issues,
     parse_frontmatter,
 )
 
@@ -66,7 +66,7 @@ def main(arguments: list[str]) -> int:
 
     documents: list[dict[str, object]] = []
 
-    for path, _allowed_statuses in guidance_documents():
+    for path, allowed_statuses in guidance_documents():
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
         except UnicodeError:
@@ -81,11 +81,7 @@ def main(arguments: list[str]) -> int:
 
         fields, body_start, frontmatter_errors = parse_frontmatter(lines)
         status = fields.get("status")
-        issues = list(frontmatter_errors)
-        if status is None:
-            issues.append("frontmatter must define status")
-        elif status not in REQUIRED_HEADINGS:
-            issues.append(f"unknown status {status!r}")
+        issues = frontmatter_errors + lifecycle_issues(fields, allowed_statuses)
 
         if not issues and status in SETTLED_STATUSES:
             continue

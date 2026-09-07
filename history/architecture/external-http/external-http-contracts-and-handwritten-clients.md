@@ -1,5 +1,9 @@
 # External HTTP Contracts and Handwritten Clients History
 
+## 2026-09-05
+
+Replaced the universal OpenAPI and no-generation rule with a scoped contract preference. Portable SDK contracts still favor OpenAPI; small local adapters may use executable authority. Reliable private generation can remove handwritten duplication while independent evidence and handwritten application policy retain clear ownership.
+
 ## 2026-08-02
 
 Separated Rust language selection into

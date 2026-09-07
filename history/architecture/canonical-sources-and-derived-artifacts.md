@@ -1,5 +1,9 @@
 # Canonical Sources and Derived Artifacts History
 
+## 2026-09-05
+
+Aligned external HTTP authority with its scoped owning guidance. Distinguished patches to incorrect generated facts from legitimate consumer adapters, and limited exact reproduction to deterministic projections; lossy ingestion instead needs coverage, provenance, and source-based quality checks.
+
 ## 2026-08-02
 
 External HTTP provider contracts are now an explicit exception to the general

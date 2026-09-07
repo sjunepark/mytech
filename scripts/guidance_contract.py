@@ -69,3 +69,16 @@ def parse_frontmatter(lines: list[str]) -> tuple[dict[str, str], int, list[str]]
         errors.append(f"unknown frontmatter fields: {', '.join(unknown_fields)}")
 
     return fields, closing_index + 1, errors
+
+
+def lifecycle_issues(fields: dict[str, str], allowed_statuses: set[str]) -> list[str]:
+    """Keep validation and unsettled-document discovery on one placement rule."""
+    status = fields.get("status")
+    if status is None:
+        return ["frontmatter must define status"]
+    if status not in REQUIRED_HEADINGS:
+        return [f"unknown status {status!r}"]
+    if status not in allowed_statuses:
+        expected = ", ".join(sorted(allowed_statuses))
+        return [f"status {status!r} is invalid at this path; expected {expected}"]
+    return []

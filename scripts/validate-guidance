@@ -12,6 +12,7 @@ from guidance_contract import (
     REQUIRED_HEADINGS,
     REPOSITORY_ROOT,
     guidance_documents,
+    lifecycle_issues,
     parse_frontmatter,
 )
 
@@ -57,13 +58,7 @@ def validate_document(path: Path, allowed_statuses: set[str]) -> list[str]:
     fields, body_start, errors = parse_frontmatter(lines)
 
     status = fields.get("status")
-    if status is None:
-        errors.append("frontmatter must define status")
-    elif status not in REQUIRED_HEADINGS:
-        errors.append(f"unknown status {status!r}")
-    elif status not in allowed_statuses:
-        expected = ", ".join(sorted(allowed_statuses))
-        errors.append(f"status {status!r} is invalid at this path; expected {expected}")
+    errors.extend(lifecycle_issues(fields, allowed_statuses))
 
     body_lines = lines[body_start:]
     first_content = next((line for line in body_lines if line), "")
@@ -99,6 +94,14 @@ def main() -> int:
             for error in errors:
                 print(f"{relative_path}: {error}", file=sys.stderr)
         return 1
+
+    regression_tests = subprocess.run(
+        [sys.executable, REPOSITORY_ROOT / "scripts" / "test_guidance.py"],
+        cwd=REPOSITORY_ROOT,
+        check=False,
+    )
+    if regression_tests.returncode:
+        return regression_tests.returncode
 
     print(f"Validated {len(documents)} guidance documents.", flush=True)
     markdown_lint = subprocess.run(

@@ -38,17 +38,19 @@ need distinct shell-level control flow.
 
 ## Discovery and preparation
 
-Provide keyless, side-effect-free discovery for version and orientation,
-capability listing, parameter and output details, and proposed-invocation
-validation. Derive it from the same canonical model as execution rather than a
-handwritten inventory.
+Provide keyless, side-effect-free help and version output. Add machine-readable
+operation discovery and proposed-invocation validation when automation needs
+them. Derive descriptions from the execution model when command breadth makes
+a handwritten inventory drift-prone; a small CLI does not need a discovery
+framework simply because an agent may invoke it.
 
 Perform lexical parsing, structural validation, path checks, operation lookup,
 and policy preflight before acquiring credentials, starting runtimes, opening
 files for replacement, or making network requests.
 
-A command that only describes a contract should not possess network,
-credential, filesystem-write, or subprocess capabilities.
+A command that only describes a contract must not resolve credentials, mutate
+files, or contact a service. Keep initialization outside this path; capability
+isolation is useful when the application's trust model requires it.
 
 ## Safety and artifacts
 

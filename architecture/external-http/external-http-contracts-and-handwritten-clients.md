@@ -8,73 +8,79 @@ status: accepted
 
 ## Decision
 
-For every external HTTP provider integration, keep or create an OpenAPI
-contract as the sole repository authority for the supported wire behavior,
-even when only one language implements it.
+Give each external HTTP integration one reviewed description of its supported
+wire behavior. Prefer OpenAPI for a reusable SDK, multiple independent
+implementations, or a contract that needs language-neutral review and tooling.
+For a small application-local adapter, executable schemas and independent
+provider examples may be sufficient; a second specification must earn the
+obligation to keep it synchronized.
 
-Handwrite each language implementation as a conformer to OpenAPI. Do not
-generate client code, wire types, validators, request builders, or response
-decoders from the contract. The implementation may repeat wire facts in types
-and code as necessary, but a wire change begins in OpenAPI and is complete only
-when every applicable conformer agrees.
+The provider owns the external protocol. A repository-owned contract records
+the subset the project supports and its evidence, including deviations from
+an incomplete or inaccurate official specification. Preserve unknown facts
+instead of inventing a cleaner protocol.
 
-The provider owns the external protocol. The repository-owned OpenAPI contract
-is the reviewed representation of the subset the project supports. Official
-specifications and bounded observations are evidence for that representation,
-not competing repository contracts.
+Prefer a maintained provider SDK when it meets the required transport, error,
+and resource contract. Otherwise handwrite a narrow client in the consuming
+application's language. Neither adopting an SDK nor writing a client removes
+the need to qualify provider behavior.
 
-## Ownership
+## Ownership and generation
 
-OpenAPI owns supported operations, parameter and body serialization,
-authentication shape, wire schemas, statuses, media types, provider failure
-envelopes, and the supported dialect and extensions.
+The wire authority owns operation identity, serialization, authentication
+shape, schemas, statuses, media types, and provider failure envelopes. The
+application boundary owns credentials, timeouts, retries, resource bounds,
+domain translation, and sanitized project-facing failures.
 
-Handwritten code owns its project-facing interface, private conforming types
-and validators, pure request preparation and response decoding, credentials,
-transport policy, safety bounds, domain translation, and presentation. It does
-not need to parse OpenAPI at runtime.
+Keep orchestration and the project-facing API handwritten. Allow generated
+wire types, validators, or private client code when the generator faithfully
+implements the supported contract and removes synchronized duplication.
+Generation is a tool choice, not a second authority: pin its inputs and verify
+freshness. Reject or replace it when its output leaks awkward contracts or
+requires permanent patches to generated facts.
 
-Give each rule one semantic owner. Do not add a language-owned manifest,
-fixture set, or model that becomes a parallel authority for OpenAPI-owned
-facts. Keep provider-native wire types and dependency failures behind the
-project-owned protocol boundary described in
+A handwritten implementation is appropriate when it is clearer or when the
+protocol exceeds the generator's supported semantics. Wire changes begin in
+the chosen authority and finish only when the affected implementation and
+independent evidence agree.
+
+Do not translate library types merely to rename them. Translate where the
+project promises a different semantic or compatibility contract, following
 [Boundary-Owned Contracts and Pure Cores](../boundary-owned-contracts-and-pure-cores.md).
 
-A language binding or facade that delegates all wire behavior to an existing
-conformer is not another language implementation. The conformer continues to
-own request preparation, authentication, transport policy, safety bounds,
-retries, response decoding, domain translation, and sanitized failure
-semantics; the binding and facade own boundary translation and
-consumer-language ergonomics, not wire behavior.
-For the preferred Node.js or Python binding shape over a Rust conformer, follow
-[Rust Cores for Node.js Packages](../rust-cores-for-nodejs-packages.md) or
-[Rust Cores for Python Packages](../rust-cores-for-python-packages.md).
+## Shared implementations
+
+A binding that delegates wire behavior to an existing core is not another
+protocol implementation. The core keeps semantic and resource ownership; the
+binding owns translation and consumer-language ergonomics. Use the
+[Node.js](../rust-cores-for-nodejs-packages.md) or
+[Python](../rust-cores-for-python-packages.md) guidance when that core is
+already justified in Rust.
+
+Independent language implementations may remain idiomatic. Share fictional
+wire fixtures and independently justified expected outcomes when this reduces
+real conformance risk. Compare supported request, response, and failure
+semantics; do not force identical internal models or introduce a differential
+harness for one implementation.
 
 ## Verification
 
-Every project validates the OpenAPI source and supported profile, checks its
-handwritten implementation against independent provider evidence, and tests
-the real language transport at an appropriate boundary.
+Validate the chosen authority and test the real transport boundary, including
+serialization, provider failures, timeouts, retry safety, and redaction where
+applicable. Generated code cannot certify the specification that produced it;
+use provider documentation, sanitized observations, and independently authored
+expectations.
 
-A single-language project uses proportionate project-native tests; it does not
-need a cross-language fixture or projection harness. When multiple languages
-implement the same contract, use one fictional shared fixture corpus and
-independent expected results. Each conformer emits a minimal, deterministic,
-credential-free projection of prepared requests, decoded outcomes, and stable
-failure categories. Verify each projection against the independent expectation
-and compare conformers exactly. Public APIs and internal structures may remain
-idiomatic to their languages.
-
-Apply the broader verification portfolio in
-[Verification from Source to Consumer](../../practices/verification-from-source-to-consumer.md).
-Provider evidence and production enablement follow
-[External Provider Qualification](../../practices/external-provider-qualification.md),
-and general source ownership follows
+Apply [Verification from Source to Consumer](../../practices/verification-from-source-to-consumer.md).
+Evidence and production enablement follow
+[External Provider Qualification](../../practices/external-provider-qualification.md);
+authority and freshness follow
 [Canonical Sources and Derived Artifacts](../canonical-sources-and-derived-artifacts.md).
 
 ## Revisit when
 
-Reconsider the mechanism when OpenAPI cannot represent the supported protocol
-truthfully or handwritten conformers cannot be maintained reliably. Preserve a
-language-neutral wire authority, independent evidence, and language-specific
-transport verification while evaluating an alternative.
+Introduce a portable contract when a local integration acquires independent
+consumers or its supported behavior becomes hard to review. Replace an SDK or
+generator when concrete transport gaps or repair work outweigh the behavior it
+reliably supplies. Keep one authority and independent evidence through either
+change.

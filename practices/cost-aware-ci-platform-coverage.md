@@ -19,8 +19,10 @@ or when measurements show that a larger runner lowers total job cost.
 Separate routine development feedback from platform-compatibility gates:
 
 - For pull requests targeting the normal development branch, usually `dev`,
-  run ordinary verification on Linux only. Supporting Windows or macOS for
-  distribution does not by itself justify testing them on each development PR.
+  run ordinary verification on Linux by default. Add affected-platform checks
+  when a change touches platform-specific code, installers, native bindings,
+  or operating-system-sensitive filesystem and process behavior. Distribution
+  support alone does not require the full matrix on every development PR.
 - For pull requests targeting `main`, require verification on every operating
   system the project claims to support, including Windows and macOS when
   applicable. Include the equivalent merge-queue check when a merge queue is
@@ -33,6 +35,10 @@ Release workflows must still build and verify every claimed distribution
 target. Follow [Verification from Source to Consumer](verification-from-source-to-consumer.md)
 and [Standalone CLI Distribution](standalone-cli-distribution.md) so reduced
 development coverage does not weaken the compatibility promised to users.
+
+The gate follows the integration and release roles, not literal branch names.
+A repository without a separate development branch must still verify supported
+platforms at its protected integration or release boundary.
 
 ## Revisit when
 

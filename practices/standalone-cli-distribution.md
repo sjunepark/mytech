@@ -8,71 +8,83 @@ status: accepted
 
 ## Decision
 
-For a standalone CLI intended for use across machines, use public GitHub
-Releases as the canonical distribution channel. The owner's machines and
-outside users use the same release installation path. A source checkout remains
-a development path, not the normal installation path.
+For a public standalone CLI used across machines, prefer immutable GitHub
+Releases as the canonical artifact source. The owner's machines and outside
+users should exercise the same supported installation path. A source checkout
+is a development path rather than the ordinary installation contract.
 
-Each tool owns its supported operating-system and architecture matrix. Publish
-only the prebuilt targets that the tool claims and verifies; this preference
-does not impose a common platform matrix across tools.
+Each tool owns its operating-system and architecture matrix. Publish only
+prebuilt targets that it claims and verifies. A private tool should use a
+suitable private artifact channel without making its source or binaries public.
 
 ## Release and installation
 
-Build immutable, versioned release assets in CI from the tagged source. Publish
-a prebuilt archive for each supported target, SHA-256 checksums, and generated
-shell and PowerShell installers. Generate asset names and both installers from
-the same tool-owned target definition so platform selection cannot drift across
-the release paths.
+Assign one owner to each transition through version preparation, tagging,
+certification, and publication as one coherent release process, even when
+different tools perform them. Gate publication on successful verification of
+the exact release artifacts for every claimed target; historical evidence does
+not certify a new release. Apply the [verification requirements](#verification)
+at the artifact and supported installation boundaries.
 
-The installers select a compatible release asset, verify its checksum, and
-install the executable without requiring a language toolchain, repository
-clone, Homebrew or another platform package manager, or GitHub CLI. Do not
-embed or invoke `gh`. Keep published tags and assets immutable; corrections use
-a new version.
+A release is complete only when consumers can retrieve durable versioned
+archives and SHA-256 checksums through the supported public or private channel
+and install the exact verified artifacts for every claimed target. Temporary
+CI artifacts alone do not establish delivery. Failed or partial publication
+must have an explicit recovery owner and report the remaining state; recovery
+preserves published tags and assets, with corrections using a new version.
 
-Package-manager and language-registry releases may be added for demonstrated
-consumer demand, but they must consume or faithfully project the same versioned
-release rather than create an independent CLI release line.
+Build versioned archives in CI from tagged source and publish SHA-256 checksums.
+Choose installers for the supported audience: a shell installer for Unix-like
+targets, PowerShell for Windows, or a package-manager path when that is the
+consumer's expected lifecycle owner. Generate target selection and asset names
+from one tool-owned definition.
 
-## Managed upgrades
+A direct installer downloads the compatible archive and verifies it without
+requiring a language toolchain, source checkout, or GitHub CLI. Published tags
+and assets remain immutable; corrections use a new version. Package-manager
+and language-registry distributions consume or faithfully project that same
+release instead of creating an independent release line.
 
-The installer writes a receipt identifying the installed version, target,
-executable, release source, and installed artifact digest. The CLI manages an
-installation only when the current executable matches that receipt; otherwise
-it leaves the executable unchanged and directs the user to the installation
-method that owns it.
+Checksums detect corruption against the supplied manifest; they do not prove
+publisher identity when an attacker can replace both. Add independently
+verifiable signatures or provenance when the distribution threat model
+requires them.
 
-Provide `upgrade --check` to report whether a newer compatible release exists
-without installing it. Provide `upgrade` to download the selected asset,
-verify its checksum and executable identity, stage and validate the candidate,
-and publish the replacement executable and updated receipt as one recoverable
-sequence. Report success only after both are durable. Unsupported targets,
-missing assets, interrupted downloads, checksum mismatches, replacement
-failures, and receipt-write failures leave or restore the previous executable
-and receipt. If restoration cannot complete, preserve recovery evidence and
-report the exact installed state rather than claiming success.
+## Upgrade ownership
 
-A tool may also perform a cached update check during interactive use, at most
-once per day. Normal commands must never wait for that network check or fail
-because of it. Do not check in CI or other noninteractive runs. A cached update
-notice recommends `upgrade` on stderr only; it never changes structured stdout,
-the command's exit status, or the installed executable, and updates are never
-installed automatically.
+Begin with reinstalling through the supported installation path. Add built-in
+self-upgrade when recurring user needs justify maintaining executable
+replacement and recovery across the supported platforms. Package-manager-owned
+installations should continue to use that package manager.
+
+When the CLI owns upgrades, an installation receipt identifies its version,
+target, executable, source, and artifact digest. Manage only an executable that
+matches the receipt. `upgrade --check` inspects availability without installing;
+`upgrade` downloads and verifies a candidate, then replaces the executable and
+receipt as a recoverable sequence.
+
+Report success only after both are durable. Interrupted downloads, missing
+assets, incompatible targets, checksum failures, and replacement or receipt
+failures leave or restore the previous installation. If recovery cannot
+complete, report the exact remaining state and preserve recovery evidence.
+
+An optional cached update notice must not delay or fail ordinary commands,
+run in CI or noninteractive use, or alter structured stdout. It may recommend
+the owning installation method on stderr; it must not install automatically.
 
 ## Verification
 
-Exercise the exact published installers, archives, and upgrade path in clean
-consumers for every target the tool claims. Verify artifact identity and
-checksums, receipt ownership, recoverable replacement failure, and the absence
-of update-check network traffic or output changes in CI and noninteractive
+Exercise the exact published archives and supported installation paths in clean
+consumers for each claimed target. Verify identity, checksums, platform
+selection, and failure behavior. If self-upgrade exists, also verify receipt
+ownership, interruption, recoverable replacement, and quiet noninteractive
 execution. Follow
 [Verification from Source to Consumer](verification-from-source-to-consumer.md)
 and [Canonical Sources and Derived Artifacts](../architecture/canonical-sources-and-derived-artifacts.md).
 
 ## Revisit when
 
-Reconsider this default when a CLI must remain private, a concrete audience
-requires native package-manager lifecycle management, GitHub Releases can no
-longer serve as the canonical public artifact source, or the threat model
-requires signatures or provenance beyond immutable assets and checksums.
+Change distribution or upgrade ownership when the audience's installation
+requirements, privacy, platform restrictions, or authenticity guarantees change.
+A small tool should not acquire an updater merely for consistency with a larger
+one.

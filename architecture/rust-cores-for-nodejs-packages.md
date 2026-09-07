@@ -31,9 +31,12 @@ caller.
 
 Translate expected Rust failures into stable project-owned categories with
 bounded safe context. Do not expose credentials, unrestricted external
-payloads, dependency errors, or panic details. Treat a Rust panic as a defect
-that must be contained at the native boundary rather than allowed to unwind
-through Node.js.
+payloads, dependency errors, or panic details. Treat a Rust panic as a defect.
+Contain unwinding panics at the binding boundary and verify the behavior under
+the release build's panic strategy. An abort cannot be translated into a
+JavaScript error; use process isolation if surviving native crashes is a
+required consumer guarantee. See Rust's
+[panic containment limits](https://doc.rust-lang.org/std/panic/fn.catch_unwind.html).
 
 Generated TypeScript declarations and platform package metadata are derived
 binding artifacts. They may be packaged or committed when useful, but the Rust
