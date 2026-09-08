@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "id": "ac3b3f02fcf195bf8be3dcf55e4a53be",
+  "kind": "apply",
+  "preState": {
+    "exists": false
+  },
+  "candidateState": "ewogICJ2ZXJzaW9uIjogMSwKICAicmVjb3JkcyI6IFsKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiYWRkcmVzcy1wci1mZWVkYmFjayIsCiAgICAgICJ0YXJnZXQiOiAiLmFnZW50cyIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiMWZlMjRhMGNhOWE3NjEwOWFlYmY5ZDM4ODI4ZDA4ZGY4NTgwYThjZjM4YWMyZjdjZWUwZWExNGIxY2IwNzQ5NCIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImFnZW50cy1tZC13cml0ZXIiLAogICAgICAidGFyZ2V0IjogIi5hZ2VudHMiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImU4YjkzMjc0Nzg4ZjE3ZjI2MjQ5NWEwNDM4OTE3YzQ3OWFiYmRlMTA0MWZlN2Y0YjQ0Mjg5ODFhNTI0MWQ1MDgiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJjb2RlLXJldmlldyIsCiAgICAgICJ0YXJnZXQiOiAiLmFnZW50cyIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiNmM5Y2Q5MDI2ODJkNDk3Y2I0NThmZjA4ZTdlODY1MGZlMzIzYWZiY2JkZDYyYTg1ODUzZjNkN2FiYjQzZDc3NyIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImNvbnRleHQ3LWNsaSIsCiAgICAgICJ0YXJnZXQiOiAiLmFnZW50cyIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6dXBzdGFzaC9jb250ZXh0NyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICJlODljZDEzNTllNmVjMzhlYjdmYzg0MTJkMTJmNjRjNWU5M2YxMjgxNmEzYmEzNjhmZTA5ZWI4MTYyNjlhYWRhIiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiY3JlYXRlLXByIiwKICAgICAgInRhcmdldCI6ICIuYWdlbnRzIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICJjNjRhNTY1YjA3MTdlODgzNzE5NDcyMTcwYjI1OTRhYzE3MjAxYmRjYzVjNGM5OGIxNjZlZDE5MzlhYzkwYWU1IiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiZGVsZWdhdGUiLAogICAgICAidGFyZ2V0IjogIi5hZ2VudHMiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImE5M2MyODYxODM1Y2IxMzY0OTQwYTkzM2EzOTJmOWJhYjkxMzMwMGM4NzQ4OTEyM2UxMjZmODE1Mjg2YzljODgiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJkZWxlZ2F0ZS11aS10by1jbGF1ZGUiLAogICAgICAidGFyZ2V0IjogIi5hZ2VudHMiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogIjQ1YzAzYzg4NmMyZDk5ZTYwMTcxNGNkOGYyMTE3MjY5ODljMzRkMTc0MDg2ZjYwODlkMWY3NWJhM2Q3ZjBjNTgiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJkZXZlbG9wLXNraWxscyIsCiAgICAgICJ0YXJnZXQiOiAiLmFnZW50cyIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiNGM5MWU2YjYzODliMzQxNDMzYTJiM2IxMzNmMmI2MTEwNjIzNzAyNDRkYTU3YmRiZDU3MDlhZDc2MGRmODBiMiIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImV4cGxvcmUtcmVwbyIsCiAgICAgICJ0YXJnZXQiOiAiLmFnZW50cyIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiOWRjMzVkMGZjZWQ5NTViMTkyMjM5ZDhkNWY0MTdlZTAxYTI5ODhlNzIxZDU5MzdiMjNiZWY2ZjUyZGFjODdjYSIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImhhcm1vbml6ZS1kb2NzIiwKICAgICAgInRhcmdldCI6ICIuYWdlbnRzIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICJiNDc5Y2M2ZmMxMWViODFhYmYwZDkwMjU1M2ZjY2M1MTM0NGRhZTY0NzA4NWNiMDBkMzU1Y2M2NjkzMTczY2QyIiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAibWVyZ2UtYnJhbmNoIiwKICAgICAgInRhcmdldCI6ICIuYWdlbnRzIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICI1YTE1YzIxOGY5YmIwMjMwMzcxODIwY2FmNTkwODQ1MzVmYjFiYzc3MWNiZjEyNDMwMzY4NjE5ZGM4YmQwZjllIiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAidGVhY2giLAogICAgICAidGFyZ2V0IjogIi5hZ2VudHMiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImMwMDA5YTI1NTU5OTQ0YmE0ZTkzMGZiODQ4MTkxMmIwYzMzZTcxOGMwYzdmZWNlZDdmMDk5NDg3OGMyMzg0NmYiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJ1cGRhdGUtYmFzZS1icmFuY2giLAogICAgICAidGFyZ2V0IjogIi5hZ2VudHMiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogIjJlNWRiMTI5NmYzMTM1NGU3NWMzYjk4NDYyZDRmODkxNDIxMDk5MTgzNzYyYTNlYTU2YWM5NTNhMGIzMWE0YzciLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJhZGRyZXNzLXByLWZlZWRiYWNrIiwKICAgICAgInRhcmdldCI6ICIuY2xhdWRlIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICIxZmUyNGEwY2E5YTc2MTA5YWViZjlkMzg4MjhkMDhkZjg1ODBhOGNmMzhhYzJmN2NlZTBlYTE0YjFjYjA3NDk0IiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiYWdlbnRzLW1kLXdyaXRlciIsCiAgICAgICJ0YXJnZXQiOiAiLmNsYXVkZSIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiZThiOTMyNzQ3ODhmMTdmMjYyNDk1YTA0Mzg5MTdjNDc5YWJiZGUxMDQxZmU3ZjRiNDQyODk4MWE1MjQxZDUwOCIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImNvZGUtcmV2aWV3IiwKICAgICAgInRhcmdldCI6ICIuY2xhdWRlIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICI2YzljZDkwMjY4MmQ0OTdjYjQ1OGZmMDhlN2U4NjUwZmUzMjNhZmJjYmRkNjJhODU4NTNmM2Q3YWJiNDNkNzc3IiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiY29udGV4dDctY2xpIiwKICAgICAgInRhcmdldCI6ICIuY2xhdWRlIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1Yjp1cHN0YXNoL2NvbnRleHQ3IiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImU4OWNkMTM1OWU2ZWMzOGViN2ZjODQxMmQxMmY2NGM1ZTkzZjEyODE2YTNiYTM2OGZlMDllYjgxNjI2OWFhZGEiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJjcmVhdGUtcHIiLAogICAgICAidGFyZ2V0IjogIi5jbGF1ZGUiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImM2NGE1NjViMDcxN2U4ODM3MTk0NzIxNzBiMjU5NGFjMTcyMDFiZGNjNWM0Yzk4YjE2NmVkMTkzOWFjOTBhZTUiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJkZWxlZ2F0ZSIsCiAgICAgICJ0YXJnZXQiOiAiLmNsYXVkZSIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiYTkzYzI4NjE4MzVjYjEzNjQ5NDBhOTMzYTM5MmY5YmFiOTEzMzAwYzg3NDg5MTIzZTEyNmY4MTUyODZjOWM4OCIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogImRldmVsb3Atc2tpbGxzIiwKICAgICAgInRhcmdldCI6ICIuY2xhdWRlIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICI0YzkxZTZiNjM4OWIzNDE0MzNhMmIzYjEzM2YyYjYxMTA2MjM3MDI0NGRhNTdiZGJkNTcwOWFkNzYwZGY4MGIyIiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiZXhwbG9yZS1yZXBvIiwKICAgICAgInRhcmdldCI6ICIuY2xhdWRlIiwKICAgICAgInNvdXJjZUlkZW50aXR5IjogImdpdGh1YjpzanVuZXBhcmsvYWdlbnQtc2NyaXB0cyIsCiAgICAgICJ0cmVlSGFzaEFsZ29yaXRobSI6ICJ0cmVlLXNoYTI1Ni12MiIsCiAgICAgICJ0cmVlSGFzaCI6ICI5ZGMzNWQwZmNlZDk1NWIxOTIyMzlkOGQ1ZjQxN2VlMDFhMjk4OGU3MjFkNTkzN2IyM2JlZjZmNTJkYWM4N2NhIiwKICAgICAgInJlY29yZGVkQXQiOiAiMjAyNi0wOS0wOFQxMjoxMTowMi44NTM0NjZaIgogICAgfSwKICAgIHsKICAgICAgInNjb3BlIjogInByb2plY3QiLAogICAgICAic2tpbGwiOiAiaGFybW9uaXplLWRvY3MiLAogICAgICAidGFyZ2V0IjogIi5jbGF1ZGUiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogImI0NzljYzZmYzExZWI4MWFiZjBkOTAyNTUzZmNjYzUxMzQ0ZGFlNjQ3MDg1Y2IwMGQzNTVjYzY2OTMxNzNjZDIiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJtZXJnZS1icmFuY2giLAogICAgICAidGFyZ2V0IjogIi5jbGF1ZGUiLAogICAgICAic291cmNlSWRlbnRpdHkiOiAiZ2l0aHViOnNqdW5lcGFyay9hZ2VudC1zY3JpcHRzIiwKICAgICAgInRyZWVIYXNoQWxnb3JpdGhtIjogInRyZWUtc2hhMjU2LXYyIiwKICAgICAgInRyZWVIYXNoIjogIjVhMTVjMjE4ZjliYjAyMzAzNzE4MjBjYWY1OTA4NDUzNWZiMWJjNzcxY2JmMTI0MzAzNjg2MTlkYzhiZDBmOWUiLAogICAgICAicmVjb3JkZWRBdCI6ICIyMDI2LTA5LTA4VDEyOjExOjAyLjg1MzQ2NloiCiAgICB9LAogICAgewogICAgICAic2NvcGUiOiAicHJvamVjdCIsCiAgICAgICJza2lsbCI6ICJ0ZWFjaCIsCiAgICAgICJ0YXJnZXQiOiAiLmNsYXVkZSIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiYzAwMDlhMjU1NTk5NDRiYTRlOTMwZmI4NDgxOTEyYjBjMzNlNzE4YzBjN2ZlY2VkN2YwOTk0ODc4YzIzODQ2ZiIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0sCiAgICB7CiAgICAgICJzY29wZSI6ICJwcm9qZWN0IiwKICAgICAgInNraWxsIjogInVwZGF0ZS1iYXNlLWJyYW5jaCIsCiAgICAgICJ0YXJnZXQiOiAiLmNsYXVkZSIsCiAgICAgICJzb3VyY2VJZGVudGl0eSI6ICJnaXRodWI6c2p1bmVwYXJrL2FnZW50LXNjcmlwdHMiLAogICAgICAidHJlZUhhc2hBbGdvcml0aG0iOiAidHJlZS1zaGEyNTYtdjIiLAogICAgICAidHJlZUhhc2giOiAiMmU1ZGIxMjk2ZjMxMzU0ZTc1YzNiOTg0NjJkNGY4OTE0MjEwOTkxODM3NjJhM2VhNTZhYzk1M2EwYjMxYTRjNyIsCiAgICAgICJyZWNvcmRlZEF0IjogIjIwMjYtMDktMDhUMTI6MTE6MDIuODUzNDY2WiIKICAgIH0KICBdCn0K",
+  "entries": [
+    {
+      "action": "install",
+      "skill": "address-pr-feedback",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "1fe24a0ca9a76109aebf9d38828d08df8580a8cf38ac2f7cee0ea14b1cb07494"
+    },
+    {
+      "action": "install",
+      "skill": "agents-md-writer",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "e8b93274788f17f262495a0438917c479abbde1041fe7f4b4428981a5241d508"
+    },
+    {
+      "action": "install",
+      "skill": "code-review",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "6c9cd902682d497cb458ff08e7e8650fe323afbcbdd62a85853f3d7abb43d777"
+    },
+    {
+      "action": "install",
+      "skill": "context7-cli",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:upstash/context7",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "e89cd1359e6ec38eb7fc8412d12f64c5e93f12816a3ba368fe09eb816269aada"
+    },
+    {
+      "action": "install",
+      "skill": "create-pr",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "c64a565b0717e883719472170b2594ac17201bdcc5c4c98b166ed1939ac90ae5"
+    },
+    {
+      "action": "install",
+      "skill": "delegate",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "a93c2861835cb1364940a933a392f9bab913300c87489123e126f815286c9c88"
+    },
+    {
+      "action": "install",
+      "skill": "delegate-ui-to-claude",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "45c03c886c2d99e601714cd8f211726989c34d174086f6089d1f75ba3d7f0c58"
+    },
+    {
+      "action": "install",
+      "skill": "develop-skills",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "4c91e6b6389b341433a2b3b133f2b611062370244da57bdbd5709ad760df80b2"
+    },
+    {
+      "action": "install",
+      "skill": "explore-repo",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "9dc35d0fced955b192239d8d5f417ee01a2988e721d5937b23bef6f52dac87ca"
+    },
+    {
+      "action": "install",
+      "skill": "harmonize-docs",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "b479cc6fc11eb81abf0d902553fccc51344dae647085cb00d355cc6693173cd2"
+    },
+    {
+      "action": "install",
+      "skill": "merge-branch",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "5a15c218f9bb0230371820caf59084535fb1bc771cbf12430368619dc8bd0f9e"
+    },
+    {
+      "action": "install",
+      "skill": "teach",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "c0009a25559944ba4e930fb8481912b0c33e718c0c7feced7f0994878c23846f"
+    },
+    {
+      "action": "install",
+      "skill": "update-base-branch",
+      "target": ".agents",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "2e5db1296f31354e75c3b98462d4f891421099183762a3ea56ac953a0b31a4c7"
+    },
+    {
+      "action": "install",
+      "skill": "address-pr-feedback",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "1fe24a0ca9a76109aebf9d38828d08df8580a8cf38ac2f7cee0ea14b1cb07494"
+    },
+    {
+      "action": "install",
+      "skill": "agents-md-writer",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "e8b93274788f17f262495a0438917c479abbde1041fe7f4b4428981a5241d508"
+    },
+    {
+      "action": "install",
+      "skill": "code-review",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "6c9cd902682d497cb458ff08e7e8650fe323afbcbdd62a85853f3d7abb43d777"
+    },
+    {
+      "action": "install",
+      "skill": "context7-cli",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:upstash/context7",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "e89cd1359e6ec38eb7fc8412d12f64c5e93f12816a3ba368fe09eb816269aada"
+    },
+    {
+      "action": "install",
+      "skill": "create-pr",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "c64a565b0717e883719472170b2594ac17201bdcc5c4c98b166ed1939ac90ae5"
+    },
+    {
+      "action": "install",
+      "skill": "delegate",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "a93c2861835cb1364940a933a392f9bab913300c87489123e126f815286c9c88"
+    },
+    {
+      "action": "install",
+      "skill": "develop-skills",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "4c91e6b6389b341433a2b3b133f2b611062370244da57bdbd5709ad760df80b2"
+    },
+    {
+      "action": "install",
+      "skill": "explore-repo",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "9dc35d0fced955b192239d8d5f417ee01a2988e721d5937b23bef6f52dac87ca"
+    },
+    {
+      "action": "install",
+      "skill": "harmonize-docs",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "b479cc6fc11eb81abf0d902553fccc51344dae647085cb00d355cc6693173cd2"
+    },
+    {
+      "action": "install",
+      "skill": "merge-branch",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "5a15c218f9bb0230371820caf59084535fb1bc771cbf12430368619dc8bd0f9e"
+    },
+    {
+      "action": "install",
+      "skill": "teach",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "c0009a25559944ba4e930fb8481912b0c33e718c0c7feced7f0994878c23846f"
+    },
+    {
+      "action": "install",
+      "skill": "update-base-branch",
+      "target": ".claude",
+      "managedParentExisted": false,
+      "managedRootExisted": false,
+      "newSourceIdentity": "github:sjunepark/agent-scripts",
+      "treeHashAlgorithm": "tree-sha256-v2",
+      "newTreeHash": "2e5db1296f31354e75c3b98462d4f891421099183762a3ea56ac953a0b31a4c7"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "develop-skills",
+  "positive": [
+    {
+      "prompt": "Use $develop-skills to create a skill from this repeated deployment workflow.",
+      "reason": "Explicitly invokes the skill for skill creation."
+    },
+    {
+      "prompt": "Run the develop-skills skill to audit whether this SKILL.md is portable.",
+      "reason": "Explicitly names the skill for a supported audit."
+    },
+    {
+      "prompt": "$develop-skills: evaluate this candidate against its baseline and trigger cases.",
+      "reason": "Explicitly invokes the skill for behavior and trigger evaluation."
+    },
+    {
+      "prompt": "Use develop-skills to audit and update every skill after this model migration.",
+      "reason": "Explicit invocation for the catalog instruction-audit route."
+    }
+  ],
+  "near_miss": [
+    {
+      "prompt": "Create a skill from this repeated deployment workflow.",
+      "reason": "The request is in scope but does not explicitly invoke the manual-only skill."
+    },
+    {
+      "prompt": "Audit whether this SKILL.md is portable.",
+      "reason": "The request is in scope but does not explicitly invoke the manual-only skill."
+    },
+    {
+      "prompt": "Write a one-off deployment checklist for this repository.",
+      "reason": "A one-off document is not skill development."
+    },
+    {
+      "prompt": "Our coding model changed; explain how its reasoning effort works.",
+      "reason": "Model usage advice does not request skill development."
+    }
+  ]
+}
