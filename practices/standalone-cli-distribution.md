@@ -68,9 +68,10 @@ assets, incompatible targets, checksum failures, and replacement or receipt
 failures leave or restore the previous installation. If recovery cannot
 complete, report the exact remaining state and preserve recovery evidence.
 
-An optional cached update notice must not delay or fail ordinary commands,
-run in CI or noninteractive use, or alter structured stdout. It may recommend
-the owning installation method on stderr; it must not install automatically.
+Follow [CLI Version Checking](cli-version-checking.md) for automatic cached
+advisories, including agent and CI use, bounded refresh cost, and an explicit
+opt-out. Update detection recommends the owning installation method;
+installation remains an explicit operation.
 
 ## Verification
 

@@ -27,7 +27,7 @@ breaks a tie; it does not substitute for evidence or justify a rewrite by itself
 | Generated and ingested artifacts | [Canonical sources](architecture/canonical-sources-and-derived-artifacts.md); [PDF ingestion](stacks/pdf-ingestion-for-llm-agents.md) |
 | Native packages | Rust cores for [Node.js](architecture/rust-cores-for-nodejs-packages.md) and [Python](architecture/rust-cores-for-python-packages.md) |
 | CLI parsers | [TypeScript](libraries/typescript/cli.md); [Rust](libraries/rust/cli.md); [Go](libraries/go/cli.md) |
-| CLI delivery | [Automation contracts](practices/automation-facing-cli-contracts.md); [standalone distribution](practices/standalone-cli-distribution.md) |
+| CLI delivery | [Automation contracts](practices/automation-facing-cli-contracts.md); [standalone distribution](practices/standalone-cli-distribution.md); [version checking](practices/cli-version-checking.md) |
 | Verification and CI | [Source to consumer](practices/verification-from-source-to-consumer.md); [platform coverage](practices/cost-aware-ci-platform-coverage.md) |
 | Changing a project | [Rewrites](practices/code-rewrites.md); [documentation states](practices/repository-documentation-states.md) |
 
