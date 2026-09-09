@@ -47,9 +47,9 @@ controlled. They may be committed when reviewability, consumer builds, release
 packaging, or offline verification benefits from it.
 
 Every derivative needs a named canonical input, one owning generator or
-projection path, a freshness or reconciliation check, and a rule for whether it
-is committed, cached, or built on demand. Preserve enough provenance to identify
-the input and generator contract.
+projection path, a promised scope, a freshness or reconciliation check, and a
+rule for whether it is committed, cached, or built on demand. Preserve enough
+provenance to identify the input and generator contract.
 
 Do not repair incorrect generated facts with permanent handwritten patches.
 Correct the canonical model, normalized model, or generator so every consumer
@@ -77,8 +77,7 @@ the unit the system can replace atomically.
 
 Use the portfolio in
 [Verification from Source to Consumer](../practices/verification-from-source-to-consumer.md).
-Every derivative must identify its input, generation path, promised scope, and
-freshness or reconciliation rule. Require exact reproduction and identity
+Require exact reproduction and identity
 coverage when the projection promises determinism. For lossy or model-produced
 artifacts, validate coverage and quality against the retained source rather
 than pretending a repeat run must produce identical bytes. Use independent

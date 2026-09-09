@@ -8,7 +8,7 @@
 
 ## Applying guidance
 
-- Treat active documents as the owner's current default preferences.
+- Treat accepted guidance as the owner's current default preferences.
 - Consider the consuming project's requirements and local instructions before
   applying a preference.
 - When they conflict, project-specific requirements and instructions take
@@ -17,15 +17,5 @@
 
 ## Maintaining guidance
 
-- Follow the guidance document contract in `README.md`. Keep each active
-  document focused on one coherent reusable preference, and remove or link
-  detail that is project-specific, independently owned, procedural, or
-  historical.
-- When consolidating guidance, re-distill the surviving preference rather than
-  concatenating prior content. Link shared rules to their owning document.
-- Record useful change rationale in a file under `history/` that mirrors the
-  active document's relative path.
-- Keep history entries brief and dated. Rely on Git for exact diffs.
-- Create history files only when a meaningful preference change occurs.
-- Keep navigation shallow, update the README when adding guidance, and add new
-  categories only when concrete content needs them.
+- Follow [Contributing](CONTRIBUTING.md) for document placement, the guidance
+  contract, maintenance rules, and validation.

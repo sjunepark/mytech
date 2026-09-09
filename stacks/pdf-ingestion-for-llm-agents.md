@@ -35,7 +35,7 @@ and model versions on the target machine.
 Use document vision models or general multimodal models for difficult pages
 when they improve measured fidelity. They may omit, normalize, or invent text;
 keep source wording, numbers, and unresolved uncertainty visible. A model
-should not silently rewrite the authoritative transcript to make it smoother.
+should not silently rewrite the extracted transcript to make it smoother.
 
 Use [Xberg PDF Ingestion Usage](../reference/xberg-pdf-ingestion-usage.md) for
 commands. The dated

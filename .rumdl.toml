@@ -3,3 +3,5 @@
 disable = ["MD013"]
 flavor = "gfm"
 respect-gitignore = true
+# Installed skill dependencies are maintained in their source repositories.
+exclude = [".agents/skills/**", ".claude/skills/**"]

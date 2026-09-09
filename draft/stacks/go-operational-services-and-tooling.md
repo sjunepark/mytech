@@ -20,7 +20,7 @@ containment in
 
 ## Why this is uncertain
 
-The source projects use Go for contract tooling and a provider gateway. The
+Initial evidence came from Go contract tooling and a provider gateway. The
 unresolved question is when a separately owned Go executable is better than
 keeping a capability in its consuming application's language. Explicit
 concurrency and portable binaries are useful only when the role needs them.

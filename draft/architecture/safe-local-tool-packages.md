@@ -26,7 +26,7 @@ explicit cancellation behavior.
 
 Whether execution must also use an allowlisted environment and explicit grants
 for credentials, network access, filesystem access, and subprocess creation is
-unresolved. The current evidence does not implement that isolation.
+unresolved. The initial evidence did not establish that isolation.
 
 Static validation and a manifest do not make executable code safe. When the
 threat model includes hostile code, add an operating-system sandbox or do not
