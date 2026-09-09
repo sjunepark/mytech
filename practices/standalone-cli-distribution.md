@@ -13,6 +13,9 @@ Releases as the canonical artifact source. The owner's machines and outside
 users should exercise the same supported installation path. A source checkout
 is a development path rather than the ordinary installation contract.
 
+Document the consumer path following
+[CLI Installation Guides](cli-installation-guides.md).
+
 Each tool owns its operating-system and architecture matrix. Publish only
 prebuilt targets that it claims and verifies. A private tool should use a
 suitable private artifact channel without making its source or binaries public.
