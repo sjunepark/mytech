@@ -35,6 +35,9 @@ Select only the layers needed for the product's risks:
 Mocks remain useful inside a boundary, but cannot replace the engine,
 serialization, packaging, or platform behavior the claim depends on.
 
+For CLI installation, follow the
+[consumer-context verification requirements](cli-installation-guides.md#verification).
+
 ## Adversarial evidence
 
 A safeguard test should prove it can distinguish the unsafe behavior. Include a

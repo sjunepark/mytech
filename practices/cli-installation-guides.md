@@ -74,15 +74,39 @@ or maintaining competing installation instructions. Show platform support
 limits honestly; building an archive and verifying its installed consumer
 behavior are different claims.
 
+For known redirected installation environments, document a supported recovery
+path, such as reinstalling from the ordinary user context or using a supported
+destination override visible to that consumer. Respect custom destinations and
+preserve applicable receipts and
+[upgrade ownership](standalone-cli-distribution.md#upgrade-ownership).
+Do not prescribe one global directory or silently edit shell profiles as a
+workaround for file visibility failures.
+
 ## Verification
 
 Treat the documented command sequence as part of the supported installation
 boundary. Exercise it with the exact release artifacts in clean consumers,
 covering the claimed platforms under the
 [distribution verification requirements](standalone-cli-distribution.md#verification).
-Check prerequisite assumptions, asset selection, verification, executable
-discovery in the current and a new shell, version identity, help, and the
-documented upgrade path where applicable.
+Check prerequisite assumptions, asset selection, checksum verification,
+version identity, help, and the documented upgrade path where applicable.
+
+Check physical file visibility at the intended installation path separately
+from command-name discovery and invocation. Exercise command discovery and
+invocation in both current and newly launched consumer shells or applications,
+distinguishing persistent PATH registration from their inherited environment
+state. Correct PATH alone does not prove that the consumer can see the
+executable; a working full path alone does not prove command discovery.
+
+Verify in the intended user's ordinary shell or application context, crossing
+the filesystem or launch boundary that can affect the installation claim. A
+fresh subprocess under the same packaged launcher, container, or redirected
+environment may share its private filesystem view and does not by itself
+establish independence. Automation is sufficient when it crosses the relevant
+boundary. When that consumer context is unavailable, record the tested context
+and the remaining verification gap instead of reporting installer-local smoke
+checks as proof of consumer usability. Separate observed results from inferred
+causes, and limit success claims to the commands and contexts actually verified.
 
 When packaging, prerequisites, installer behavior, or delivery status changes,
 update the affected reader paths together. A Markdown or link check alone does
