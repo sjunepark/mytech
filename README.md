@@ -42,6 +42,16 @@ For descriptive system knowledge, see the dated
 The [2026-09-05 review](reference/technology-preferences-review.md) gives a
 candid assessment of the choices and the revisions made during the review.
 
+## Reusable skills
+
+`skills/` contains distributable skills for other projects. Repo-local
+`.agents/` and `.claude/` contain skills and configuration used while working
+in this repository.
+
+Use [consult-mytech](skills/consult-mytech/SKILL.md) to read relevant preferences
+and assess a coding task or project's alignment. Its source package is
+`skills/consult-mytech/`; installation is separate from explicit invocation.
+
 ## Guidance document contract
 
 Guidance starts with exactly this restricted frontmatter form:
