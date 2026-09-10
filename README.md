@@ -29,6 +29,7 @@ breaks a tie; it does not substitute for evidence or justify a rewrite by itself
 | CLI parsers | [TypeScript](libraries/typescript/cli.md); [Rust](libraries/rust/cli.md); [Go](libraries/go/cli.md) |
 | CLI behavior | [Automation contracts](practices/automation-facing-cli-contracts.md); [version checking](practices/cli-version-checking.md) |
 | CLI delivery | [Standalone distribution](practices/standalone-cli-distribution.md); [installation guides](practices/cli-installation-guides.md) |
+| CLI agent skills | [Consumer skills and progressive loading](practices/cli-consumer-skills.md) |
 | Verification and CI | [Source to consumer](practices/verification-from-source-to-consumer.md); [platform coverage](practices/cost-aware-ci-platform-coverage.md) |
 | Changing a project | [Rewrites](practices/code-rewrites.md); [documentation states](practices/repository-documentation-states.md) |
 

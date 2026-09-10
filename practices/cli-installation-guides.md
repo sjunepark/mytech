@@ -19,6 +19,10 @@ artifact channels and installation ownership. This guidance explains how to
 document the chosen method; it does not require a different installer, runtime,
 package manager, or self-updater.
 
+For an agent skill, route to installation only when setup is needed, following
+[CLI Consumer Skills](cli-consumer-skills.md). Keep the complete installation
+path available without loading it during routine CLI use.
+
 ## Reader path
 
 Keep the common installation path in the README, in this order:
