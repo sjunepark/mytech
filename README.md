@@ -22,7 +22,7 @@ breaks a tie; it does not substitute for evidence or justify a rewrite by itself
 | --- | --- |
 | Application shape | [Boundaries and pure cores](architecture/boundary-owned-contracts-and-pure-cores.md); [SvelteKit, Effect, PostgreSQL](stacks/typescript/sveltekit-effect-postgresql.md) |
 | TypeScript orchestration | [Effect](libraries/typescript/effect.md) |
-| HTTP integrations | [Contracts and clients](architecture/external-http/external-http-contracts-and-handwritten-clients.md); [when Rust earns a core](architecture/external-http/rust-for-external-http-protocols.md); [provider qualification](practices/external-provider-qualification.md) |
+| HTTP integrations | [Contracts and clients](architecture/external-http/external-http-contracts-and-handwritten-clients.md); [when Rust earns a core](architecture/external-http/rust-for-external-http-protocols.md); [provider qualification](practices/external-provider-qualification.md); [request pacing](practices/external-request-pacing.md) |
 | Durable state | [Database authority](architecture/database-schema-authority.md); [persist before external effects](architecture/persist-before-external-effects.md) |
 | Generated and ingested artifacts | [Canonical sources](architecture/canonical-sources-and-derived-artifacts.md); [PDF ingestion](stacks/pdf-ingestion-for-llm-agents.md) |
 | Native packages | Rust cores for [Node.js](architecture/rust-cores-for-nodejs-packages.md) and [Python](architecture/rust-cores-for-python-packages.md) |

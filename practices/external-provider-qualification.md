@@ -114,6 +114,8 @@ Use
 [External HTTP Contracts and Handwritten Clients](../architecture/external-http/external-http-contracts-and-handwritten-clients.md)
 to select a proportionate wire authority, contain SDK or client behavior,
 and define independent conformance evidence.
+Use [External Request Pacing](external-request-pacing.md) for default pacing,
+its cross-process scope, and interval configuration.
 
 ## Revisit when
 
