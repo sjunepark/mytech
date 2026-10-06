@@ -28,9 +28,10 @@ discriminant, operation identity, typed result or structured error, bounded
 warnings or diagnostics, and direct artifact evidence.
 
 Logs and progress belong on stderr and are disabled or explicitly selected for
-quiet machine operation. Library logging must never contaminate structured
-stdout. An alternate encoding requires a concrete consumer because it enlarges
-the compatibility surface.
+quiet machine operation; follow [CLI Progress Reporting](cli-progress-reporting.md)
+for human progress. Library logging must never contaminate structured stdout.
+An alternate encoding requires a concrete consumer because it enlarges the
+compatibility surface.
 
 Define a small stable exit-status taxonomy for success, valid execution
 failure, and invalid invocation. More statuses are warranted only when callers
