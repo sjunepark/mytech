@@ -4,7 +4,7 @@ status: accepted
 
 # Automation-Facing CLI Contracts
 
-**Initial evidence:** OpenDART, Seoro, Unslide
+**Initial evidence:** OpenDART, Seoro, Unslide, darty
 
 ## Decision
 
@@ -39,11 +39,17 @@ need distinct shell-level control flow.
 
 ## Discovery and preparation
 
-Provide keyless, side-effect-free help and version output. Add machine-readable
-operation discovery and proposed-invocation validation when automation needs
-them. Derive descriptions from the execution model when command breadth makes
-a handwritten inventory drift-prone; a small CLI does not need a discovery
-framework simply because an agent may invoke it.
+Provide keyless, side-effect-free help and version output. A bare invocation
+with no arguments prints exactly the root `--help` output: the same text on
+stdout with exit status 0, rendered from one source. Do not keep a separate
+landing or home view for the bare command, including a structured home envelope
+in an otherwise JSON-first, agent-facing CLI. Two inventories of the same
+commands drift apart, and agents read help text as well as people do.
+
+Add machine-readable operation discovery and proposed-invocation validation
+when automation needs them. Derive descriptions from the execution model when
+command breadth makes a handwritten inventory drift-prone; a small CLI does not
+need a discovery framework simply because an agent may invoke it.
 
 Perform lexical parsing, structural validation, path checks, operation lookup,
 and policy preflight before acquiring credentials, starting runtimes, opening
@@ -87,7 +93,8 @@ Keep orchestration and stable process envelopes handwritten.
 Apply [Verification from Source to Consumer](verification-from-source-to-consumer.md)
 and test the packaged executable as an external process. Assert stdout document
 and newline behavior, stderr policy, exit statuses, side-effect-free discovery,
-malformed and oversized input, redaction, and artifact publication.
+bare-invocation output byte-identical to `--help`, malformed and oversized
+input, redaction, and artifact publication.
 
 ## Revisit when
 
