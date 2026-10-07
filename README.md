@@ -31,6 +31,7 @@ breaks a tie; it does not substitute for evidence or justify a rewrite by itself
 | CLI delivery | [Standalone distribution](practices/standalone-cli-distribution.md); [installation guides](practices/cli-installation-guides.md) |
 | CLI agent skills | [Consumer skills and progressive loading](practices/cli-consumer-skills.md) |
 | Verification and CI | [Source to consumer](practices/verification-from-source-to-consumer.md); [platform coverage](practices/cost-aware-ci-platform-coverage.md); [owner-gated PR CI](practices/owner-gated-pull-request-ci.md) |
+| Environment and secrets | [Varlock environment contracts](practices/varlock-environment-contracts.md) |
 | Repository files | [LF line endings](practices/lf-line-endings.md) |
 | Changing a project | [Rewrites](practices/code-rewrites.md); [documentation states](practices/repository-documentation-states.md) |
 

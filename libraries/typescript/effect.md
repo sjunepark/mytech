@@ -22,7 +22,9 @@ not need an Effect runtime.
 
 Compose one runtime for each application or process boundary. Provide shared
 resources such as database pools, browser managers, configuration, and provider
-clients through that composition root.
+clients through that composition root. Generate environment configuration from
+the [Varlock contract](../../practices/varlock-environment-contracts.md) rather
+than declaring it again in `Config`.
 
 Run Effect programs at established application edges, such as request, desktop,
 command-line, worker, or Promise-returning adapters. Do not scatter `runPromise`
