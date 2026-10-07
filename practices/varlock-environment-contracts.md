@@ -24,7 +24,6 @@ when the first variable appears.
 
 ## Shape
 
-- Pin the Varlock version exactly. Treat upgrades as deliberate changes.
 - Launch every entry point through `varlock run` or a framework integration.
   This covers package scripts, task runners, IDE run configurations, tests, and
   CI.
