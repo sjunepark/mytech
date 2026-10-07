@@ -2,17 +2,19 @@
 status: accepted
 ---
 
-# Varlock Environment Contracts
+# Dotenv Files and Varlock Environment Contracts
 
 **Initial evidence:** darty (eval-only key); accepted target in Seoro
 
 ## Decision
 
-Use [Varlock](https://varlock.dev) as the default environment contract in any
-repository whose code reads environment variables, regardless of language. A
-committed `.env.schema` declares every variable with its type, whether it is
-required, and whether it is sensitive. Misconfiguration then fails at startup
-with a clear error instead of at first use.
+Use dotenv files plus [Varlock](https://varlock.dev) as the default for
+environment variables in projects, regardless of language. Dotenv files hold
+configuration values and secret references; Varlock owns their declared,
+validated environment contract. A committed `.env.schema` declares every
+variable with its type, whether it is required, and whether it is sensitive.
+Misconfiguration then fails at startup with a clear error instead of at first
+use.
 
 Prefer this over reading the environment directly, even in small repositories.
 The extra schema, CLI, and generated code are an accepted cost for one
@@ -24,6 +26,9 @@ when the first variable appears.
 
 ## Shape
 
+- Keep shared, non-sensitive defaults and secret references in committed dotenv
+  files. Use ignored `.env.local` files for machine-specific overrides. Never
+  commit secret values.
 - Launch every entry point through `varlock run` or a framework integration.
   This covers package scripts, task runners, IDE run configurations, tests, and
   CI.
@@ -32,7 +37,8 @@ when the first variable appears.
   `@generateGoEnv`. These loaders fail closed when the program was not started
   by Varlock. Keep that behavior.
 - Resolve secrets from 1Password through the Varlock plugin rather than storing
-  them in `.env.local`. Commit no secret values.
+  them in `.env.local`. Keep this integration within the host's `op-agent`
+  access boundaries.
 - In Effect applications, let Varlock own validation and generate the Effect
   `Config` module from the schema (`@generateEffectConfig`). Do not validate the
   same variables twice. See [Effect](../libraries/typescript/effect.md).
